@@ -63,32 +63,11 @@ export SWA_CLI_DEPLOYMENT_TOKEN='<Azure portal → Static Web App → Overview �
 
 On Windows PowerShell, run `$env:SWA_CLI_DEPLOYMENT_TOKEN='...'` and then `swa deploy . --env production`. `deploy.sh` only uploads the public files, so `README.md` and `deploy.sh` are never published.
 
-## Step 2B (alternative): Deploy from a private GitHub repo
+## Step 2B (alternative): Deploy automatically from this private repo
 
-1. Use this private repository (the site files are already at its root).
-2. In that repo, go to **Settings → Secrets and variables → Actions** and add `AZURE_STATIC_WEB_APPS_API_TOKEN` (the deployment token).
-3. Add `.github/workflows/azure-static-web-apps.yml`:
+The workflow in `.github/workflows/azure-static-web-apps.yml` publishes the site every time `main` changes. You can also start it by hand from the **Actions** tab (**Run workflow**). It uploads only the public site files.
 
-```yaml
-name: Deploy to Azure Static Web Apps
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-permissions:
-  contents: read
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          action: upload
-          app_location: "/"
-          skip_app_build: true
-```
+One-time setup: in this repo, go to **Settings → Secrets and variables → Actions → New repository secret**. Name it `AZURE_STATIC_WEB_APPS_API_TOKEN` and paste the deployment token as the value. Until the secret exists, the workflow stops with a message telling you to add it.
 
 ## Step 3: Connect spectrumarch.org
 
