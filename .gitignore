@@ -1,0 +1,5 @@
+# Never commit deployment secrets
+.env
+*.token
+swa-cli.config.json
+.azure/
