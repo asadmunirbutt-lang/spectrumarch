@@ -19,6 +19,6 @@ fi
 # Stage only the public site files so notes and scripts are never uploaded.
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
-cp -R *.html favicon.svg robots.txt sitemap.xml staticwebapp.config.json assets "$STAGE"/
+cp -R *.html favicon.svg favicon.ico robots.txt sitemap.xml staticwebapp.config.json assets "$STAGE"/
 
 swa deploy "$STAGE" --env production
