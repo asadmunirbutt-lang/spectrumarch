@@ -42,8 +42,12 @@ def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None
 {seo}  <meta property="og:title" content="{full_title}">
   <meta property="og:description" content="{desc}">
 {og_url}  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.spectrumarch.org/assets/icons/icon-512.png">
   <meta name="theme-color" content="#2f6f8f">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/icons/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-180.png">
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="/assets/js/site.js" defer></script>
 {head_extra}</head>
@@ -117,7 +121,7 @@ STATUS = '''        <div class="callout">
           <p>Spectrum Arch is seeking OPWDD certification as a residential services provider, and we expect our first home to open in early 2027. We are not accepting placements yet, but families, care managers, and referral sources are welcome to <a href="/contact.html">contact us</a> now to join our interest list.</p>
         </div>'''
 
-ORG_LD = '  <script type="application/ld+json">\n  {\n    "@context": "https://schema.org",\n    "@type": "NGO",\n    "name": "Spectrum Arch, Inc.",\n    "alternateName": "Spectrum Arch",\n    "slogan": "Building the Arch to Independence",\n    "url": "https://www.spectrumarch.org/",\n    "logo": "https://www.spectrumarch.org/assets/img/logo.svg",\n    "description": "Person-centered, community-integrated residential services for adults with autism spectrum disorder and developmental disabilities in Saratoga County and the Capital District of New York.",\n    "nonprofitStatus": "Nonprofit501c3",\n    "taxID": "42-3421753",\n    "foundingDate": "2026-06-15",\n    "email": "amb@grscorp.us",\n    "telephone": "+1-317-991-0361",\n    "address": {\n      "@type": "PostalAddress",\n      "streetAddress": "29 Westbury Court",\n      "addressLocality": "Clifton Park",\n      "addressRegion": "NY",\n      "postalCode": "12065",\n      "addressCountry": "US"\n    },\n    "areaServed": ["Saratoga County, NY", "Capital District, NY"],\n    "founder": { "@type": "Person", "name": "Asad M. Butt" }\n  }\n  </script>\n'
+ORG_LD = '  <script type="application/ld+json">\n  {\n    "@context": "https://schema.org",\n    "@type": "NGO",\n    "name": "Spectrum Arch, Inc.",\n    "alternateName": "Spectrum Arch",\n    "slogan": "Building the Arch to Independence",\n    "url": "https://www.spectrumarch.org/",\n    "logo": "https://www.spectrumarch.org/assets/icons/icon-512.png",\n    "description": "Person-centered, community-integrated residential services for adults with autism spectrum disorder and developmental disabilities in Saratoga County and the Capital District of New York.",\n    "nonprofitStatus": "Nonprofit501c3",\n    "taxID": "42-3421753",\n    "foundingDate": "2026-06-15",\n    "email": "amb@grscorp.us",\n    "telephone": "+1-317-991-0361",\n    "address": {\n      "@type": "PostalAddress",\n      "streetAddress": "29 Westbury Court",\n      "addressLocality": "Clifton Park",\n      "addressRegion": "NY",\n      "postalCode": "12065",\n      "addressCountry": "US"\n    },\n    "areaServed": ["Saratoga County, NY", "Capital District, NY"],\n    "founder": { "@type": "Person", "name": "Asad M. Butt" }\n  }\n  </script>\n'
 
 # ---------------- Home ----------------
 page("index.html", "Home",
@@ -935,7 +939,7 @@ f'''    <article class="section post">
         "headline": p["title"], "description": p["description"],
         "datePublished": p["date"], "dateModified": p.get("updated", p["date"]),
         "author": {"@type": "Person", "name": p["author"], "jobTitle": p["author_title"]},
-        "publisher": {"@type": "NGO", "name": "Spectrum Arch, Inc.", "logo": {"@type": "ImageObject", "url": SITE + "/assets/img/logo.svg"}},
+        "publisher": {"@type": "NGO", "name": "Spectrum Arch, Inc.", "logo": {"@type": "ImageObject", "url": SITE + "/assets/icons/icon-512.png"}},
         "mainEntityOfPage": SITE + f"/blog/{p['slug']}.html",
         "keywords": ", ".join(p["tags"])})
       + ld(crumbs(("Home", ""), ("Blog", "blog.html"), (p["title"], f"blog/{p['slug']}.html"))),
