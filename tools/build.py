@@ -2,7 +2,7 @@
 import os
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.spectrumarch.org"
-EMAIL = "amb@grscorp.us"
+EMAIL = "info@spectrumarch.org"
 PHONE = "317-991-0361"
 TEL = "+13179910361"
 EIN = "42-3421753"
@@ -121,7 +121,7 @@ STATUS = '''        <div class="callout">
           <p>Spectrum Arch is seeking OPWDD certification as a residential services provider, and we expect our first home to open in early 2027. We are not accepting placements yet, but families, care managers, and referral sources are welcome to <a href="/contact.html">contact us</a> now to join our interest list.</p>
         </div>'''
 
-ORG_LD = '  <script type="application/ld+json">\n  {\n    "@context": "https://schema.org",\n    "@type": "NGO",\n    "name": "Spectrum Arch, Inc.",\n    "alternateName": "Spectrum Arch",\n    "slogan": "Building the Arch to Independence",\n    "url": "https://www.spectrumarch.org/",\n    "logo": "https://www.spectrumarch.org/assets/icons/icon-512.png",\n    "description": "Person-centered, community-integrated residential services for adults with autism spectrum disorder and developmental disabilities in Saratoga County and the Capital District of New York.",\n    "nonprofitStatus": "Nonprofit501c3",\n    "taxID": "42-3421753",\n    "foundingDate": "2026-06-15",\n    "email": "amb@grscorp.us",\n    "telephone": "+1-317-991-0361",\n    "address": {\n      "@type": "PostalAddress",\n      "streetAddress": "29 Westbury Court",\n      "addressLocality": "Clifton Park",\n      "addressRegion": "NY",\n      "postalCode": "12065",\n      "addressCountry": "US"\n    },\n    "areaServed": ["Saratoga County, NY", "Capital District, NY"],\n    "founder": { "@type": "Person", "name": "Asad M. Butt" }\n  }\n  </script>\n'
+ORG_LD = '  <script type="application/ld+json">\n  {\n    "@context": "https://schema.org",\n    "@type": "NGO",\n    "name": "Spectrum Arch, Inc.",\n    "alternateName": "Spectrum Arch",\n    "slogan": "Building the Arch to Independence",\n    "url": "https://www.spectrumarch.org/",\n    "logo": "https://www.spectrumarch.org/assets/icons/icon-512.png",\n    "description": "Person-centered, community-integrated residential services for adults with autism spectrum disorder and developmental disabilities in Saratoga County and the Capital District of New York.",\n    "nonprofitStatus": "Nonprofit501c3",\n    "taxID": "42-3421753",\n    "foundingDate": "2026-06-15",\n    "email": "info@spectrumarch.org",\n    "telephone": "+1-317-991-0361",\n    "address": {\n      "@type": "PostalAddress",\n      "streetAddress": "29 Westbury Court",\n      "addressLocality": "Clifton Park",\n      "addressRegion": "NY",\n      "postalCode": "12065",\n      "addressCountry": "US"\n    },\n    "areaServed": ["Saratoga County, NY", "Capital District, NY"],\n    "founder": { "@type": "Person", "name": "Asad M. Butt" }\n  }\n  </script>\n'
 
 # ---------------- Home ----------------
 page("index.html", "Home",
@@ -508,8 +508,8 @@ import json
 
 # One place to change once OPWDD approval for Support Brokerage is in hand.
 SB_STATUS = '''        <div class="callout">
-          <h3>Now building our Support Brokerage team</h3>
-          <p>Spectrum Arch is preparing to offer Support Brokerage in Saratoga County and across the Capital Region. We are not accepting new Self-Direction clients yet, but families and Care Managers are welcome to <a href="/contact.html">contact us</a> to join our interest list. We will reach out as soon as we can start.</p>
+          <h3>Support Brokerage: in process</h3>
+          <p>Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region. We are not accepting Self-Direction clients yet. Families and Care Managers can <a href="/contact.html">contact us</a> to join our interest list.</p>
         </div>'''
 
 SB_LINKS = '''        <div class="grid grid-3">
@@ -596,7 +596,6 @@ f'''    <section class="page-head">
             <li><strong>Autism-focused.</strong> Our work centers on adults with autism and developmental disabilities.</li>
             <li><strong>Looking ahead.</strong> We plan to seek OPWDD approval as a Fiscal Intermediary, so self-directing families can work with one local partner.</li>
             <li><strong>Person-centered.</strong> Your goals drive the plan, not an agency's schedule.</li>
-            <li><strong>Straightforward.</strong> Clear explanations, prompt replies, and no jargon.</li>
           </ul>
         </div>
       </div>
@@ -788,7 +787,7 @@ f'''    <section class="page-head">
       <div class="container grid grid-2">
         <div>
           <h2>Local help matters</h2>
-          <p>A Support Broker who knows the area can connect you with nearby community activities, day programs, respite options, and staff, and can meet in person when that helps. Our focus on the Capital Region means we can do exactly that.</p>
+          <p>A Support Broker who knows the area can connect you with nearby community activities, day programs, respite options, and staff, and can meet in person when that helps. Spectrum Arch is based in Clifton Park and focused on the Capital Region.</p>
         </div>
 {SB_STATUS}
       </div>
@@ -949,7 +948,7 @@ post_cards = "\n".join(f'''          <article class="card post-card">
             <p class="post-meta"><time datetime="{p["date"]}">{nice_date(p["date"])}</time></p>
             <h2><a href="/blog/{p["slug"]}.html">{p["title"]}</a></h2>
             <p>{p["description"]}</p>
-          </article>''' for p in POSTS) or '          <p>Our first posts are on the way.</p>'
+          </article>''' for p in POSTS)
 
 page("blog.html", "Blog",
  "Practical guides for families of adults with autism and developmental disabilities in New York: turning 21, OPWDD services, Self-Direction, Support Brokers, and housing.",
