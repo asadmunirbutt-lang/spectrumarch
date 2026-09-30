@@ -260,3 +260,12 @@ main { display: block; }
 .post-card h2 a { text-decoration: none; }
 .post-card h2 a:hover { text-decoration: underline; }
 @media (max-width: 760px) { .post-pager { grid-template-columns: 1fr; } .post-pager .newer { grid-column: 1; text-align: left; } }
+
+/* ----- Founder and author ----- */
+.founder { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; align-items: start; }
+.founder img { border-radius: var(--radius); width: 220px; height: auto; }
+@media (max-width: 760px) { .founder { grid-template-columns: 1fr; } .founder img { width: 160px; } }
+.author-box { display: flex; gap: 1rem; align-items: flex-start; border-top: 1px solid var(--border); padding-top: 1.25rem; margin-top: 2rem; }
+.author-box img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.author-box p { margin: 0 0 .25rem; font-size: .95rem; }
+.author-name { font-weight: 700; color: var(--heading); }

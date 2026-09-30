@@ -3,6 +3,8 @@ name: Deploy to Azure Static Web Apps
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "0 11 * * *"   # daily, 7am Eastern: publishes blog posts whose date has arrived
   workflow_dispatch:
 
 permissions:
@@ -26,6 +28,9 @@ jobs:
             echo "::error::Add the AZURE_STATIC_WEB_APPS_API_TOKEN secret (Settings > Secrets and variables > Actions) before deploying."
             exit 1
           fi
+
+      - name: Build pages and blog
+        run: python3 tools/build.py
 
       # Publish only the public site files, never README.md, deploy.sh, or workflow files.
       - name: Stage public files

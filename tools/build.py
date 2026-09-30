@@ -206,7 +206,6 @@ page("about.html", "About us",
  "About Spectrum Arch, Inc.: our mission, vision, board of directors, and organizational status.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">About us</span>
         <h1>Building the Arch to Independence</h1>
         <p class="lead">Spectrum Arch, Inc. is a New York nonprofit based in Clifton Park that is creating community homes for adults with autism spectrum disorder and developmental disabilities.</p>
       </div>
@@ -225,7 +224,19 @@ f'''    <section class="page-head">
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="founder">
+      <div class="container founder">
+        <img src="/assets/img/asad-butt.jpg" alt="Asad M. Butt, President and Founder of Spectrum Arch" width="220" height="219" loading="lazy">
+        <div>
+          <h2>Our founder</h2>
+          <p><strong>Asad M. Butt</strong> founded Spectrum Arch and serves as its President. He is based in Clifton Park and is an advocate for families raising children on the autism spectrum: mentoring caregivers, taking part in community awareness events, and working with organizations that help families find housing and services.</p>
+          <p>He is Chairman of the Board of the Global Relief and Support Corporation, a New York State licensed real estate salesperson in the Capital Region, and holds an MBA in Supply Chain Management and a certification in negotiation from eCornell. He speaks English, Urdu, Hindi, Punjabi, and Pashto.</p>
+          <p>He founded Spectrum Arch to address a gap many Capital District families face: when school services end at 21, there are far too few residential options, and many adults stay at home with aging parents and no plan for the future.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
       <div class="container">
         <h2>Board of directors</h2>
         <div class="grid grid-3">
@@ -236,7 +247,7 @@ f'''    <section class="page-head">
       </div>
     </section>
 
-    <section class="section alt">
+    <section class="section">
       <div class="container grid grid-2">
         <div>
           <h2>Our organization</h2>
@@ -263,7 +274,7 @@ f'''    <section class="page-head">
       </div>
     </section>
 
-    <section class="section">
+    <section class="section alt">
       <div class="container">
         <h2>Our goals</h2>
         <div class="grid grid-2">
@@ -275,7 +286,7 @@ f'''    <section class="page-head">
       </div>
     </section>
 
-    <section class="section alt">
+    <section class="section">
       <div class="container">
         <h2>Our path to opening</h2>
         <ol class="timeline">
@@ -293,7 +304,6 @@ page("services.html", "Services",
  "Spectrum Arch Individual Residential Alternative (IRA) homes: 24/7 residential support, health and wellness, community integration, and person-centered planning for adults 21+.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Services</span>
         <h1>Individual Residential Alternative (IRA) homes</h1>
         <p class="lead">Community homes where adults with autism and developmental disabilities live together with trained staff support, in typical residential neighborhoods close to community resources.</p>
       </div>
@@ -385,7 +395,6 @@ page("resources.html", "Resources",
  "Trusted resources for families of adults with autism and developmental disabilities in New York State.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Resources</span>
         <h1>Trusted places to start</h1>
         <p class="lead">Planning for adult services takes time. These well-established organizations and public programs can help. Spectrum Arch is not affiliated with them. Links open in a new tab.</p>
       </div>
@@ -422,7 +431,6 @@ page("get-involved.html", "Get involved",
  "Support Spectrum Arch, Inc., a 501(c)(3) nonprofit building community homes for adults with autism in the Capital District.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Get involved</span>
         <h1>Help us build the arch</h1>
         <p class="lead">Every home we open is a place where adults with autism can live with dignity and purpose, and where families can finally plan for the future.</p>
       </div>
@@ -453,7 +461,6 @@ page("contact.html", "Contact",
  "Contact Spectrum Arch, Inc. in Clifton Park, NY about residential services, referrals, employment, and partnerships.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Contact</span>
         <h1>Get in touch</h1>
         <p class="lead">Families, care managers, referral sources, job seekers, and partners are all welcome to reach out.</p>
       </div>
@@ -542,7 +549,6 @@ page("support-brokerage.html", "Support Broker Services in Albany & the Capital 
  "Support Broker services for OPWDD Self-Direction in Albany, Saratoga, Schenectady, Troy, and the Capital Region of New York. Learn how a Support Broker helps you plan, budget, and hire staff.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Support Brokerage &middot; OPWDD Self-Direction</span>
         <h1>Support Broker services in New York's Capital Region</h1>
         <p class="lead">Self-Direction puts people with developmental disabilities and their families in charge of their own supports. A Support Broker is your guide through it: planning, budgeting, hiring, and keeping everything running smoothly.</p>
         <div class="btn-row">
@@ -648,7 +654,6 @@ page("self-direction-guide.html", "OPWDD Self-Direction in New York: Step-by-Ste
  "A plain-language, step-by-step guide to OPWDD Self-Direction in New York: eligibility, the HCBS Waiver, Care Managers, Support Brokers, Fiscal Intermediaries, budgets, and hiring staff.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Guide</span>
         <h1>OPWDD Self-Direction in New York: a step-by-step guide</h1>
         <p class="lead">Self-Direction can feel complicated at first. Here is the whole path in eight steps, plus the terms you will hear along the way.</p>
       </div>
@@ -673,8 +678,7 @@ f'''    <section class="page-head">
           </dl>
         </div>
         <div>
-{SB_STATUS}
-          <div class="card mt-2">
+          <div class="card">
             <h3>Official information</h3>
             <p>Program rules change. For the latest details, see OPWDD's <a href="https://opwdd.ny.gov/providers/self-direction-providers" rel="noopener" target="_blank">Self-Direction information</a> and <a href="https://opwdd.ny.gov/support-broker-authorization-faq" rel="noopener" target="_blank">Support Broker FAQ</a>, or ask your Care Manager.</p>
           </div>
@@ -684,8 +688,7 @@ f'''    <section class="page-head">
 
     <section class="section alt">
       <div class="container">
-        <h2>Keep reading</h2>
-{SB_LINKS}
+        <p>Next: read what a <a href="/support-brokerage.html">Support Broker does</a>, or see <a href="/support-broker-faq.html">common questions</a> about cost and timing.</p>
       </div>
     </section>
 ''', head_extra=ld({
@@ -727,7 +730,6 @@ page("support-broker-faq.html", "Support Broker & Self-Direction FAQ",
  "Answers to common questions about Support Brokers and OPWDD Self-Direction in New York: what a broker does, cost, eligibility, timing, hiring staff, and changing brokers.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Questions and answers</span>
         <h1>Support Broker and Self-Direction FAQ</h1>
         <p class="lead">Straight answers to the questions families ask most. Select a question to see the answer.</p>
       </div>
@@ -742,13 +744,12 @@ f'''    <section class="page-head">
     </section>
 
     <section class="section">
-      <div class="container grid grid-2">
+      <div class="container">
         <div>
           <h2>Still have a question?</h2>
           <p>Get in touch and we will do our best to help, even if the answer is another organization.</p>
           <div class="btn-row"><a class="btn btn-primary" href="/contact.html">Contact us</a></div>
         </div>
-{SB_STATUS}
       </div>
     </section>
 ''', head_extra=ld({
@@ -767,7 +768,6 @@ page("support-broker-capital-region.html", "Support Brokers in Saratoga, Albany 
  "Support Brokerage for OPWDD Self-Direction across New York's Capital Region: Saratoga, Albany, Schenectady, Rensselaer, Warren, Washington, Columbia, and Greene counties.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Areas we serve</span>
         <h1>Support Brokerage across the Capital Region</h1>
         <p class="lead">Spectrum Arch is based in Clifton Park, Saratoga County. We are building Support Brokerage services for families throughout the Capital Region of New York.</p>
       </div>
@@ -784,19 +784,12 @@ f'''    <section class="page-head">
     </section>
 
     <section class="section">
-      <div class="container grid grid-2">
+      <div class="container">
         <div>
           <h2>Local help matters</h2>
           <p>A Support Broker who knows the area can connect you with nearby community activities, day programs, respite options, and staff, and can meet in person when that helps. Spectrum Arch is based in Clifton Park and focused on the Capital Region.</p>
+          <p>Support Brokerage at Spectrum Arch is in process; see <a href="/support-brokerage.html">our Support Brokerage page</a> for where things stand.</p>
         </div>
-{SB_STATUS}
-      </div>
-    </section>
-
-    <section class="section alt">
-      <div class="container">
-        <h2>Learn more</h2>
-{SB_LINKS}
       </div>
     </section>
 ''', head_extra=ld(crumbs(("Home", ""), ("Support Brokerage", "support-brokerage.html"), ("Areas we serve", "support-broker-capital-region.html"))),
@@ -809,7 +802,6 @@ page("privacy.html", "Privacy policy",
  "How spectrumarch.org handles information: no cookies, no tracking, no forms. What we do with emails and phone calls you send us.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Privacy</span>
         <h1>Privacy policy</h1>
         <p class="lead">Last updated September 23, 2026.</p>
       </div>
@@ -841,7 +833,6 @@ page("accessibility.html", "Accessibility",
  "Spectrum Arch's commitment to an accessible, low-sensory website, and how to tell us about a barrier.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Accessibility</span>
         <h1>Accessibility statement</h1>
         <p class="lead">Our website should work for everyone, including the people we exist to serve.</p>
       </div>
@@ -895,8 +886,9 @@ def read_post(path):
     meta["tags"] = [t.strip() for t in meta.get("tags", "").split(",") if t.strip()]
     return meta
 
+TODAY = os.environ.get("BUILD_DATE") or datetime.date.today().isoformat()  # BUILD_DATE lets you preview scheduled posts
 POSTS = sorted((p for p in map(read_post, glob.glob(os.path.join(BLOG_DIR, "*.html")))
-                if p.get("status") == "published"), key=lambda p: p["date"], reverse=True)
+                if p.get("status") == "published" and p["date"] <= TODAY), key=lambda p: p["date"], reverse=True)
 
 def nice_date(d):
     dt = datetime.date.fromisoformat(d)
@@ -904,6 +896,18 @@ def nice_date(d):
 
 def words(p):
     return len(re.sub(r"<[^>]+>", " ", p["body"]).split())
+
+def author_box(p):
+    if p["author"] != "Asad M. Butt":
+        return ""
+    return '''        <aside class="author-box" aria-label="About the author">
+          <img src="/assets/img/asad-butt.jpg" alt="" width="72" height="72" loading="lazy">
+          <div>
+            <p class="author-name">Asad M. Butt</p>
+            <p>President and founder of Spectrum Arch, and an advocate for Capital Region families raising children on the autism spectrum. <a href="/about.html#founder">More about Asad</a></p>
+          </div>
+        </aside>
+'''
 
 for i, p in enumerate(POSTS):
     older = POSTS[i + 1] if i + 1 < len(POSTS) else None
@@ -928,7 +932,7 @@ f'''    <article class="section post">
         <div class="post-body">
 {p["body"]}
         </div>
-        <div class="callout post-cta">
+{author_box(p)}        <div class="callout post-cta">
           <p><strong>Questions about your family's situation?</strong> <a href="/contact.html">Get in touch</a>. We are happy to talk it through, even if the right answer is another organization.</p>
         </div>
 {pager}      </div>
@@ -954,7 +958,6 @@ page("blog.html", "Blog",
  "Practical guides for families of adults with autism and developmental disabilities in New York: turning 21, OPWDD services, Self-Direction, Support Brokers, and housing.",
 f'''    <section class="page-head">
       <div class="container">
-        <span class="eyebrow">Blog</span>
         <h1>Guides for families</h1>
         <p class="lead">Plain-language articles on adult services in New York: what to expect, what to ask, and where to start.</p>
       </div>
