@@ -427,3 +427,16 @@ a.cat-badge:hover { text-decoration: underline; }
 .site-footer h2 { color: #ffffff; }
 .site-footer a { color: #a9d3e6; }
 .site-footer .legal { border-top-color: rgba(255,255,255,.15); color: #9fb0bf; }
+
+/* ----- Areas we serve ----- */
+.facts { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.facts li { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--c-opwdd); border-radius: 8px; padding: .65rem .9rem; margin: 0; }
+.area-region { margin-bottom: 2rem; }
+.area-region h2 { font-size: 1.35rem; border-bottom: 3px solid var(--c-opwdd-bg); padding-bottom: .4rem; }
+.area-offices { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.area-office { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; }
+.area-office h3 { font-size: 1rem; margin-bottom: .5rem; color: var(--c-opwdd); }
+.area-office ul { list-style: none; padding: 0; margin: 0; }
+.area-office li { padding: .2rem 0; }
+a.primary-area, span.primary-area { background: var(--c-sd-bg); color: var(--c-sd); font-weight: 700; padding: .1rem .45rem; border-radius: 6px; }
+.legend { font-size: .9rem; color: var(--muted); }
