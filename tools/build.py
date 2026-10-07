@@ -4,7 +4,7 @@ OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.spectrumarch.org"
 # Google tag IDs for Ad Grants conversion tracking. Public values (they appear
 # in page source). Leave empty to load no tracking at all.
-GA_ID = os.environ.get("GA_MEASUREMENT_ID", "")   # e.g. G-XXXXXXXXXX
+GA_ID = os.environ.get("GA_MEASUREMENT_ID", "G-MR3WG3T594")   # GA4 property: spectrumarch.org
 ADS_ID = os.environ.get("GOOGLE_ADS_ID", "")      # e.g. AW-XXXXXXXXXX
 TRACKING = bool(GA_ID or ADS_ID)
 EMAIL = "info@spectrumarch.org"
