@@ -10,6 +10,16 @@
   },
   "routes": [
     {
+      "route": "/index",
+      "redirect": "/",
+      "statusCode": 301
+    },
+    {
+      "route": "/index.html",
+      "redirect": "/",
+      "statusCode": 301
+    },
+    {
       "route": "/blog.html",
       "redirect": "/blog",
       "statusCode": 301
