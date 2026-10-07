@@ -44,6 +44,7 @@
       'I agree that Spectrum Arch may contact me about Support Brokerage.'
     ];
     var subject = 'Waitlist: ' + val('wl-name') + ' (' + val('wl-county') + ')';
+    if (window.saTrack) window.saTrack('waitlist_request', { county: val('wl-county') });
     window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) +
       '&body=' + encodeURIComponent(lines.join('\n'));
     done.hidden = false;

@@ -2,6 +2,11 @@
 import os, re
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.spectrumarch.org"
+# Google tag IDs for Ad Grants conversion tracking. Public values (they appear
+# in page source). Leave empty to load no tracking at all.
+GA_ID = os.environ.get("GA_MEASUREMENT_ID", "")   # e.g. G-XXXXXXXXXX
+ADS_ID = os.environ.get("GOOGLE_ADS_ID", "")      # e.g. AW-XXXXXXXXXX
+TRACKING = bool(GA_ID or ADS_ID)
 EMAIL = "info@spectrumarch.org"
 PHONE = "317-991-0361"
 TEL = "+13179910361"
@@ -68,6 +73,7 @@ def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None
     else:
         seo = f'  <link rel="canonical" href="{canon}">\n'
     og_url = "" if noindex else f'  <meta property="og:url" content="{canon}">\n'
+    analytics_tag = (f'  <script src="/assets/js/analytics.js" data-ga="{GA_ID}" data-ads="{ADS_ID}" defer></script>' if TRACKING else "")
     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,6 +92,7 @@ def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None
   <link rel="apple-touch-icon" href="/assets/icons/icon-180.png">
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="/assets/js/site.js" defer></script>
+{analytics_tag}
 {head_extra}</head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -359,10 +366,23 @@ f'''    <section class="page-head">
     <section class="section alt">
       <div class="container">
         <h2>Board of directors</h2>
+        <p>Spectrum Arch is governed by a volunteer board of three directors, two of them independent. Directors are not paid for board service, and the board has adopted a conflict of interest policy.</p>
         <div class="grid grid-3">
-          <div class="card"><h3>Asad M. Butt</h3><p>President and Founder</p></div>
-          <div class="card"><h3>Tyrone Crooks</h3><p>Director (Independent)</p></div>
-          <div class="card"><h3>Khalid Rehman</h3><p>Director (Independent)</p></div>
+          <div class="card board-card">
+            <h3>Asad M. Butt</h3>
+            <p class="board-role">President and Founder</p>
+            <p>An advocate for Capital Region families raising children on the autism spectrum. Asad also chairs the board of the Global Relief and Support Corporation and has served as a director of other organizations. <a href="#founder">More about Asad</a></p>
+          </div>
+          <div class="card board-card">
+            <h3>Tyrone Crooks</h3>
+            <p class="board-role">Director (Independent)</p>
+            <p>An entrepreneur with deep expertise in financial management. Tyrone has built successful companies and serves with several charitable nonprofits, and brings that experience to the board's oversight of Spectrum Arch's finances and governance.</p>
+          </div>
+          <div class="card board-card">
+            <h3>Khalid Rehman</h3>
+            <p class="board-role">Director (Independent)</p>
+            <p>A London-based entrepreneur in the hospitality industry. Khalid has a track record of building successful businesses and is involved with several charitable nonprofits, bringing a focus on service, operations, and the experience of the people being served.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -990,8 +1010,14 @@ f'''    <section class="page-head">
 # =====================================================================
 # Policies
 # =====================================================================
+if TRACKING:
+    PRIVACY_ANALYTICS = """        <p>Very little. This website shows no advertising. We use Google Analytics and Google Ads conversion tracking to understand how people find us and whether our Google Ad Grants ads help families reach us. These Google tools set cookies and record things like the pages you visit, the general area you browse from, and the type of device you use. They also note when someone requests to join the waitlist or clicks our email address or phone number, but <strong>never what you type into the form</strong>.</p>
+        <p>You can block these cookies in your browser settings, or install Google's <a href="https://tools.google.com/dlpage/gaoptout">Analytics opt-out add-on</a>. The rest of the site works the same without them.</p>"""
+else:
+    PRIVACY_ANALYTICS = """        <p>Very little. This website has no advertising, no analytics or tracking scripts, and it does not set cookies.</p>"""
+
 page("privacy.html", "Privacy policy",
- "How spectrumarch.org handles information: no cookies, no tracking, no forms. What we do with emails and phone calls you send us.",
+ ("How spectrumarch.org handles information: what Google Analytics records, what the waitlist form does, and what we do with emails and calls you send us." if TRACKING else "How spectrumarch.org handles information: no cookies, no tracking, no forms. What we do with emails and phone calls you send us."),
 f'''    <section class="page-head">
       <div class="container">
         <h1>Privacy policy</h1>
@@ -1002,7 +1028,7 @@ f'''    <section class="page-head">
     <section class="section alt">
       <div class="container">
         <h2>What this website collects</h2>
-        <p>Very little. This website has no advertising, no analytics or tracking scripts, and it does not set cookies.</p>
+{PRIVACY_ANALYTICS}
         <p>Our waitlist form does not send anything to this website. When you press the button, it opens a pre-filled email in your own email app, addressed to {EMAIL}. Nothing is shared until you choose to send that email.</p>
         <p>Like almost every website, our hosting provider, Microsoft Azure, keeps standard technical logs (such as IP address, browser type, and the pages requested) to keep the site running and secure. We do not use these logs to identify visitors.</p>
 
@@ -1394,6 +1420,27 @@ STATIC_PAGES = ["", "waitlist.html", "about.html", "services.html", "support-bro
                 "support-broker-faq.html", "support-broker-capital-region.html", "blog.html",
                 "resources.html", "get-involved.html", "contact.html", "privacy.html", "accessibility.html"]
 SITE_UPDATED = "2026-10-08"
+
+# Content-Security-Policy: strict by default; opened only to Google's tag
+# domains when tracking IDs are set.
+_cfg = json.load(open("staticwebapp.config.json"))
+if TRACKING:
+    G = "https://*.googletagmanager.com"
+    GA = "https://*.google-analytics.com https://*.analytics.google.com"
+    GADS = "https://*.g.doubleclick.net https://*.google.com https://www.googleadservices.com"
+    csp = (f"default-src 'self'; script-src 'self' {G} https://www.googleadservices.com; style-src 'self'; "
+           f"img-src 'self' data: {G} {GA} {GADS}; font-src 'self'; connect-src 'self' {G} {GA} {GADS}; "
+           f"frame-src https://td.doubleclick.net {G}; object-src 'none'; base-uri 'self'; "
+           "form-action 'self' mailto:; frame-ancestors 'none'; upgrade-insecure-requests")
+else:
+    csp = ("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; "
+           "connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; "
+           "frame-ancestors 'none'; upgrade-insecure-requests")
+if _cfg["globalHeaders"]["Content-Security-Policy"] != csp:
+    _cfg["globalHeaders"]["Content-Security-Policy"] = csp
+    with open("staticwebapp.config.json", "w") as f:
+        json.dump(_cfg, f, indent=2)
+        f.write("\n")
 entries = [(u, SITE_UPDATED) for u in STATIC_PAGES + GUIDE_SLUGS + TOPIC_PAGES + AREA_PAGES] + [(f"blog/{p['slug']}.html", p.get("updated", p["date"])) for p in POSTS]
 def clean_path(u):
     return clean_urls('/' + u + '"')[1:-1]

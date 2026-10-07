@@ -440,3 +440,6 @@ a.cat-badge:hover { text-decoration: underline; }
 .area-office li { padding: .2rem 0; }
 a.primary-area, span.primary-area { background: var(--c-sd-bg); color: var(--c-sd); font-weight: 700; padding: .1rem .45rem; border-radius: 6px; }
 .legend { font-size: .9rem; color: var(--muted); }
+
+/* Board cards */
+.board-card .board-role { color: var(--muted, #5b6b7a); font-weight: 600; margin-top: -.25rem; }
