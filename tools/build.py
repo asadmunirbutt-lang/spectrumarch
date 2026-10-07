@@ -180,7 +180,7 @@ import json
 # One place to change once OPWDD approval for Support Brokerage is in hand.
 SB_STATUS = '''        <div class="callout">
           <h3>Where we are</h3>
-          <p>Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region, and we are working through OPWDD's Support Broker training and authorization. We are not providing Support Brokerage services yet. In the meantime, we publish <a href="/self-direction-guide.html">free guides</a> for New York families and answer questions by email and phone at no cost. <a href="/waitlist.html">Join the waitlist</a> and we will contact you as soon as we can begin.</p>
+          <p>Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region, and we are working through OPWDD's Support Broker training and authorization. We are not providing Support Brokerage services yet. In the meantime, we publish <a href="/self-direction-guide.html">free guides</a> for New York families and offer free consultations to families as part of our community help. <a href="/waitlist.html">Join the waitlist</a> and we will contact you as soon as we can begin.</p>
         </div>'''
 
 SB_LINKS = '''        <div class="grid grid-3">
@@ -358,7 +358,7 @@ f'''    <section class="page-head">
         <p>Right now, Spectrum Arch:</p>
         <ul>
           <li><strong>Publishes free, plain-language guides</strong> for New York families on OPWDD eligibility, Self-Direction, budgets, hiring staff, school transitions, benefits, and planning for the future. See the <a href="/self-direction-guide.html">Self-Direction guide</a> and our <a href="/blog.html">blog</a>.</li>
-          <li><strong>Answers families' questions</strong> by email and phone at no cost, and points them to the right next step, such as OPWDD's Front Door, a Care Coordination Organization, or county services.</li>
+          <li><strong>Offers free consultations to families</strong> as part of our community help: by phone, email, or in person, we talk through where a family is in the process and point them to the right next step, such as OPWDD's Front Door, a Care Coordination Organization, or county services.</li>
           <li><strong>Keeps a waitlist</strong> of Capital Region families who want a Support Broker, so we can begin serving them as soon as our OPWDD Support Broker authorization is complete.</li>
         </ul>
         <p>Residential services remain a long-term goal. You can read about the <a href="/services.html">model we hope to offer</a> when the state reopens applications.</p>
@@ -580,7 +580,7 @@ page("get-involved.html", "Get involved",
 f'''    <section class="page-head">
       <div class="container">
         <h1>Help us build the arch</h1>
-        <p class="lead">Families who self-direct their OPWDD services shouldn't have to figure it out alone. Your time, skills, and gifts help us publish free guides, answer families' questions, and prepare to serve the families on our waitlist.</p>
+        <p class="lead">Families who self-direct their OPWDD services shouldn't have to figure it out alone. Your time, skills, and gifts help us publish free guides, offer free consultations to families, and prepare to serve the families on our waitlist.</p>
       </div>
     </section>
 
