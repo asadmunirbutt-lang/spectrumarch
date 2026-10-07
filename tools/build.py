@@ -180,7 +180,7 @@ import json
 # One place to change once OPWDD approval for Support Brokerage is in hand.
 SB_STATUS = '''        <div class="callout">
           <h3>Where we are</h3>
-          <p>Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region, and we are working through OPWDD's Support Broker training and authorization. We are not serving Self-Direction clients yet. <a href="/waitlist.html">Join the waitlist</a> and we will contact you as soon as we can begin.</p>
+          <p>Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region, and we are working through OPWDD's Support Broker training and authorization. We are not providing Support Brokerage services yet. In the meantime, we publish <a href="/self-direction-guide.html">free guides</a> for New York families and answer questions by email and phone at no cost. <a href="/waitlist.html">Join the waitlist</a> and we will contact you as soon as we can begin.</p>
         </div>'''
 
 SB_LINKS = '''        <div class="grid grid-3">
@@ -348,6 +348,20 @@ f'''    <section class="page-head">
           <h2>Our vision</h2>
           <p>To become the Capital District's leading provider of high-quality, innovative residential services that reflect best practices in autism support and developmental disabilities services.</p>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="today">
+      <div class="container narrow">
+        <h2>How we work toward our mission today</h2>
+        <p>New York has not opened applications for new residential homes in about two years, and no one can say when it will. So the board decided not to wait. The goal behind our mission is the same: adults with autism and developmental disabilities living with dignity, independence, and purpose in their own communities. Today we pursue it through <a href="/support-brokerage.html">Support Brokerage</a>, which helps people who self-direct their OPWDD services build a life around their own goals, often while living at home or in housing they choose.</p>
+        <p>Right now, Spectrum Arch:</p>
+        <ul>
+          <li><strong>Publishes free, plain-language guides</strong> for New York families on OPWDD eligibility, Self-Direction, budgets, hiring staff, school transitions, benefits, and planning for the future. See the <a href="/self-direction-guide.html">Self-Direction guide</a> and our <a href="/blog.html">blog</a>.</li>
+          <li><strong>Answers families' questions</strong> by email and phone at no cost, and points them to the right next step, such as OPWDD's Front Door, a Care Coordination Organization, or county services.</li>
+          <li><strong>Keeps a waitlist</strong> of Capital Region families who want a Support Broker, so we can begin serving them as soon as our OPWDD Support Broker authorization is complete.</li>
+        </ul>
+        <p>Residential services remain a long-term goal. You can read about the <a href="/services.html">model we hope to offer</a> when the state reopens applications.</p>
       </div>
     </section>
 
@@ -562,11 +576,11 @@ f'''    <section class="page-head">
 
 # ---------------- Get involved ----------------
 page("get-involved.html", "Get involved",
- "Support Spectrum Arch, Inc., a 501(c)(3) nonprofit building community homes for adults with autism in the Capital District.",
+ "Support Spectrum Arch, Inc., a 501(c)(3) nonprofit helping Capital Region families self-direct their OPWDD services through Support Brokerage and free guides.",
 f'''    <section class="page-head">
       <div class="container">
         <h1>Help us build the arch</h1>
-        <p class="lead">Every home we open is a place where adults with autism can live with dignity and purpose, and where families can finally plan for the future.</p>
+        <p class="lead">Families who self-direct their OPWDD services shouldn't have to figure it out alone. Your time, skills, and gifts help us publish free guides, answer families' questions, and prepare to serve the families on our waitlist.</p>
       </div>
     </section>
 
