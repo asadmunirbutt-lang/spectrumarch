@@ -377,6 +377,15 @@ f'''    <section class="page-head">
       </div>
     </section>
 
+    <section class="section">
+      <div class="container narrow">
+        <figure class="photo">
+          <img src="/assets/img/national-pta-convention.jpg" srcset="/assets/img/national-pta-convention-800.jpg 800w, /assets/img/national-pta-convention.jpg 1600w" sizes="(max-width: 800px) 100vw, 760px" width="1600" height="624" loading="lazy" alt="Asad M. Butt standing between two PTA members at the National PTA convention">
+          <figcaption>Asad M. Butt, Spectrum Arch's President, at the National PTA convention, where he went to learn more about the options available to children with special needs and their families.</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="section alt">
       <div class="container">
         <h2>Board of directors</h2>

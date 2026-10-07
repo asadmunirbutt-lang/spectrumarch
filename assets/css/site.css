@@ -444,3 +444,8 @@ a.primary-area, span.primary-area { background: var(--c-sd-bg); color: var(--c-s
 /* Board cards */
 .board-card .board-role { color: var(--muted, #5b6b7a); font-weight: 600; margin-top: -.25rem; }
 .board-card img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin-bottom: .75rem; }
+
+/* Photos with captions */
+.photo { margin: 0; }
+.photo img { width: 100%; height: auto; border-radius: var(--radius); display: block; }
+.photo figcaption { font-size: .95rem; color: var(--muted, #5b6b7a); margin-top: .6rem; }
