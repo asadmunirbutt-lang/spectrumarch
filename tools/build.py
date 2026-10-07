@@ -200,6 +200,37 @@ COUNTIES = [
     ("Greene County", "Catskill, Coxsackie, and Cairo"),
 ]
 
+CATEGORIES = {
+    "school":         ("School & Early Years", "Early Intervention, preschool special education, IEPs, 504 plans, evaluations, and your rights at school."),
+    "opwdd":          ("OPWDD & Services", "Eligibility, waivers, care management, day programs, respite, family support, and housing in New York."),
+    "self-direction": ("Self-Direction", "Planning, budgets, staff, Fiscal Intermediaries, and working with a Support Broker."),
+    "money":          ("Money & Benefits", "SSI, Medicaid, ABLE accounts, work incentives, and protecting benefits."),
+    "planning":       ("Planning & Legal", "Turning 18 and 21, decision-making, trusts, and planning for the future."),
+    "health":         ("Health & Safety", "Crisis support, emergency planning, wandering prevention, and staying safe."),
+    "family":         ("Family & Daily Life", "Transportation, travel, assistive technology, caregiver support, and everyday life."),
+}
+
+import glob, re, datetime, html as htmlmod
+
+BLOG_DIR = os.path.join(OUT, "content", "blog")
+os.makedirs(os.path.join(OUT, "blog"), exist_ok=True)
+
+def read_post(path):
+    raw = open(path, encoding="utf-8").read()
+    m = re.match(r"\s*<!--(.*?)-->\s*(.*)", raw, re.S)
+    meta = {}
+    for line in m.group(1).strip().splitlines():
+        k, _, v = line.partition(":")
+        meta[k.strip()] = v.strip()
+    meta["body"] = m.group(2).strip()
+    meta["slug"] = os.path.splitext(os.path.basename(path))[0]
+    meta["tags"] = [t.strip() for t in meta.get("tags", "").split(",") if t.strip()]
+    return meta
+
+TODAY = os.environ.get("BUILD_DATE") or datetime.date.today().isoformat()  # BUILD_DATE lets you preview scheduled posts
+POSTS = sorted((p for p in map(read_post, glob.glob(os.path.join(BLOG_DIR, "*.html")))
+                if p.get("status") == "published" and p["date"] <= TODAY), key=lambda p: p["date"], reverse=True)
+
 # ---------------- Home ----------------
 page("index.html", "Home",
  "Spectrum Arch is a Clifton Park nonprofit offering Support Brokerage for OPWDD Self-Direction in Saratoga, Albany, Schenectady, Rensselaer and the Capital Region. Join our waitlist.",
@@ -260,6 +291,16 @@ f'''    <section class="hero">
     </section>
 
     <section class="section">
+      <div class="container">
+        <h2>Explore by topic</h2>
+        <p>Plain-language guides for New York families of children and adults with disabilities.</p>
+        <div class="topic-grid">
+{chr(10).join(f'          <a class="topic-tile cat-{c}" href="/blog/topics/{c}.html"><strong>{n}</strong><span>{d}</span></a>' for c, (n, d) in CATEGORIES.items() if any(p.get('category') == c for p in POSTS))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
       <div class="container grid grid-2">
         <div>
           <h2>From our blog</h2>
@@ -1020,26 +1061,7 @@ f'''    <section class="page-head">
 #   -->
 #   <p>Body HTML...</p>
 # =====================================================================
-import glob, re, datetime, html as htmlmod
 
-BLOG_DIR = os.path.join(OUT, "content", "blog")
-os.makedirs(os.path.join(OUT, "blog"), exist_ok=True)
-
-def read_post(path):
-    raw = open(path, encoding="utf-8").read()
-    m = re.match(r"\s*<!--(.*?)-->\s*(.*)", raw, re.S)
-    meta = {}
-    for line in m.group(1).strip().splitlines():
-        k, _, v = line.partition(":")
-        meta[k.strip()] = v.strip()
-    meta["body"] = m.group(2).strip()
-    meta["slug"] = os.path.splitext(os.path.basename(path))[0]
-    meta["tags"] = [t.strip() for t in meta.get("tags", "").split(",") if t.strip()]
-    return meta
-
-TODAY = os.environ.get("BUILD_DATE") or datetime.date.today().isoformat()  # BUILD_DATE lets you preview scheduled posts
-POSTS = sorted((p for p in map(read_post, glob.glob(os.path.join(BLOG_DIR, "*.html")))
-                if p.get("status") == "published" and p["date"] <= TODAY), key=lambda p: p["date"], reverse=True)
 
 
 PUBLISHED_SLUGS = {p["slug"] for p in POSTS}
@@ -1047,7 +1069,7 @@ def unlink_future_posts(html):
     """Links to scheduled (not yet published) posts become plain text until the post goes live."""
     def fix(m):
         return m.group(0) if m.group(1) in PUBLISHED_SLUGS else m.group(2)
-    return re.sub(r'<a href="/blog/([a-z0-9-]+)\.html">(.*?)</a>', fix, html)
+    return re.sub(r'<a href="/blog/([a-z0-9-]+)(?:\.html)?">(.*?)</a>', fix, html)
 
 def nice_date(d):
     dt = datetime.date.fromisoformat(d)
@@ -1068,6 +1090,29 @@ def author_box(p):
         </aside>
 '''
 
+
+# Blog categories: slug -> (name, one-line description). Colors live in site.css (.cat-<slug>).
+def cat_of(p): return p.get("category", "family")
+def cat_badge(p, link=True):
+    c = cat_of(p); name = CATEGORIES[c][0]
+    return (f'<a class="cat-badge cat-{c}" href="/blog/topics/{c}.html">{name}</a>' if link
+            else f'<span class="cat-badge cat-{c}">{name}</span>')
+def post_card(p, featured=False):
+    minutes = max(1, round(words(p) / 220))
+    cls = "post-card featured" if featured else "post-card"
+    return f'''          <article class="{cls} cat-{cat_of(p)}">
+            <div class="post-card-top">{cat_badge(p)}<span class="post-meta"><time datetime="{p["date"]}">{nice_date(p["date"])}</time> &middot; {minutes} min read</span></div>
+            <h2><a href="/blog/{p["slug"]}.html">{p["title"]}</a></h2>
+            <p>{p["description"]}</p>
+          </article>'''
+def topic_chips(active=None):
+    chips = [f'<a class="chip{" active" if active is None else ""}" href="/blog.html">All topics</a>']
+    for c, (name, _) in CATEGORIES.items():
+        n = sum(1 for p in POSTS if cat_of(p) == c)
+        if n:
+            chips.append(f'<a class="chip cat-{c}{" active" if active == c else ""}" href="/blog/topics/{c}.html">{name} <span>{n}</span></a>')
+    return '<nav class="chips" aria-label="Blog topics">' + "".join(chips) + '</nav>'
+
 for i, p in enumerate(POSTS):
     older = POSTS[i + 1] if i + 1 < len(POSTS) else None
     newer = POSTS[i - 1] if i > 0 else None
@@ -1081,10 +1126,16 @@ for i, p in enumerate(POSTS):
         pager += '        </nav>\n'
     minutes = max(1, round(words(p) / 220))
     tags = "".join(f'<span class="tag">{t}</span>' for t in p["tags"])
+    same = [q for q in POSTS if cat_of(q) == cat_of(p) and q["slug"] != p["slug"]][:3]
+    related = ""
+    if same:
+        related = (f'        <section class="related-posts" aria-label="More in {CATEGORIES[cat_of(p)][0]}">\n'
+                   f'          <h2>More in {CATEGORIES[cat_of(p)][0]}</h2>\n          <div class="post-grid">\n'
+                   + "\n".join(post_card(q) for q in same) + '\n          </div>\n        </section>\n')
     page(f"blog/{p['slug']}.html", p["title"], p["description"],
 f'''    <article class="section post">
       <div class="container narrow">
-        <p class="eyebrow"><a href="/blog.html">Blog</a></p>
+        <p class="post-kicker"><a href="/blog.html">Blog</a> <span aria-hidden="true">/</span> {cat_badge(p)}</p>
         <h1>{p["title"]}</h1>
         <p class="post-meta">By {p["author"]}, {p["author_title"]} &middot; <time datetime="{p["date"]}">{nice_date(p["date"])}</time> &middot; {minutes} min read</p>
         <div class="tags">{tags}</div>
@@ -1094,7 +1145,7 @@ f'''    <article class="section post">
 {author_box(p)}        <div class="callout post-cta">
           <p><strong>Questions about your family's situation?</strong> <a href="/contact.html">Get in touch</a>. We are happy to talk it through, even if the right answer is another organization.</p>
         </div>
-{pager}      </div>
+{related}{pager}      </div>
     </article>
 ''', head_extra=ld({
         "@context": "https://schema.org", "@type": "BlogPosting",
@@ -1104,33 +1155,58 @@ f'''    <article class="section post">
         "publisher": {"@type": "NGO", "name": "Spectrum Arch, Inc.", "logo": {"@type": "ImageObject", "url": SITE + "/assets/icons/icon-512.png"}},
         "mainEntityOfPage": SITE + f"/blog/{p['slug']}.html",
         "keywords": ", ".join(p["tags"])})
-      + ld(crumbs(("Home", ""), ("Blog", "blog.html"), (p["title"], f"blog/{p['slug']}.html"))),
+      + ld(crumbs(("Home", ""), ("Blog", "blog.html"), (CATEGORIES[cat_of(p)][0], f"blog/topics/{cat_of(p)}.html"), (p["title"], f"blog/{p['slug']}.html"))),
      full_title=f'{p["title"]} | Spectrum Arch')
 
-post_cards = "\n".join(f'''          <article class="card post-card">
-            <p class="post-meta"><time datetime="{p["date"]}">{nice_date(p["date"])}</time></p>
-            <h2><a href="/blog/{p["slug"]}.html">{p["title"]}</a></h2>
-            <p>{p["description"]}</p>
-          </article>''' for p in POSTS)
-
+featured = POSTS[0] if POSTS else None
+rest = POSTS[1:]
 page("blog.html", "Blog",
- "Practical guides for families of adults with autism and developmental disabilities in New York: turning 21, OPWDD services, Self-Direction, Support Brokers, and housing.",
-f'''    <section class="page-head">
+ "Plain-language guides for New York families of children and adults with disabilities: Early Intervention, IEPs, OPWDD services, Self-Direction, SSI and Medicaid, ABLE accounts, safety, and planning ahead.",
+f'''    <section class="blog-hero">
       <div class="container">
         <h1>Guides for families</h1>
-        <p class="lead">Plain-language articles on adult services in New York: what to expect, what to ask, and where to start.</p>
+        <p class="lead">Plain-language answers for New York families of children and adults with disabilities: school, services, benefits, safety, and planning ahead. Checked against official sources.</p>
+        {topic_chips()}
       </div>
     </section>
 
-    <section class="section alt">
+    <section class="section">
       <div class="container">
-        <div class="post-list">
-{post_cards}
+        <h2 class="visually-hidden">Latest posts</h2>
+        <div class="post-grid">
+{post_card(featured, True) if featured else ""}
+{chr(10).join(post_card(p) for p in rest)}
         </div>
       </div>
     </section>
-''', head_extra=ld(crumbs(("Home", ""), ("Blog", "blog.html"))))
+''', head_extra=ld(crumbs(("Home", ""), ("Blog", "blog.html"))), full_title="Blog: Guides for Special Needs Families in New York | Spectrum Arch")
 
+TOPIC_PAGES = []
+for c, (name, blurb) in CATEGORIES.items():
+    posts = [p for p in POSTS if cat_of(p) == c]
+    if not posts:
+        continue
+    TOPIC_PAGES.append(f"blog/topics/{c}.html")
+    page(f"blog/topics/{c}.html", name,
+     f"{name}: {blurb} Plain-language guides for New York families from Spectrum Arch.",
+f'''    <section class="blog-hero cat-{c}">
+      <div class="container">
+        <p class="post-kicker"><a href="/blog.html">Blog</a> <span aria-hidden="true">/</span> Topic</p>
+        <h1>{name}</h1>
+        <p class="lead">{blurb}</p>
+        {topic_chips(c)}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="post-grid">
+{chr(10).join(post_card(p) for p in posts)}
+        </div>
+      </div>
+    </section>
+''', head_extra=ld(crumbs(("Home", ""), ("Blog", "blog.html"), (name, f"blog/topics/{c}.html"))),
+     full_title=f"{name} | Spectrum Arch Blog")
 
 # =====================================================================
 # Guide pages (Support Brokerage and Self-Direction reference pages)
@@ -1198,7 +1274,7 @@ STATIC_PAGES = ["", "waitlist.html", "about.html", "services.html", "support-bro
                 "support-broker-faq.html", "support-broker-capital-region.html", "blog.html",
                 "resources.html", "get-involved.html", "contact.html", "privacy.html", "accessibility.html"]
 SITE_UPDATED = "2026-10-08"
-entries = [(u, SITE_UPDATED) for u in STATIC_PAGES + GUIDE_SLUGS] + [(f"blog/{p['slug']}.html", p.get("updated", p["date"])) for p in POSTS]
+entries = [(u, SITE_UPDATED) for u in STATIC_PAGES + GUIDE_SLUGS + TOPIC_PAGES] + [(f"blog/{p['slug']}.html", p.get("updated", p["date"])) for p in POSTS]
 def clean_path(u):
     return clean_urls('/' + u + '"')[1:-1]
 urls = "\n".join(f"  <url><loc>{SITE}/{clean_path(u)}</loc><lastmod>{d}</lastmod></url>" for u, d in entries)
