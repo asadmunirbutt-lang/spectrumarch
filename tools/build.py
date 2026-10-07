@@ -1,5 +1,5 @@
 """Generates every page of spectrumarch.org. Run: python3 tools/build.py"""
-import os
+import os, re
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.spectrumarch.org"
 EMAIL = "info@spectrumarch.org"
@@ -33,6 +33,17 @@ ICON = {
  "heart": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
  "chat": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>',
 }
+
+
+CLEAN_LINK = re.compile(r'((?:https://www\.spectrumarch\.org)?/)([A-Za-z0-9_/-]*?)(index)?\.html(?=["#?<\s])')
+def clean_urls(html):
+    """Rewrite internal links like /about.html -> /about, /index.html -> /, /blog.html -> /blog."""
+    def fix(m):
+        base, path, idx = m.group(1), m.group(2), m.group(3)
+        if idx is not None:          # /index.html or /x/index.html
+            return base + path.rstrip("/")
+        return base + path
+    return CLEAN_LINK.sub(fix, html)
 
 def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None):
     cur = ' aria-current="page"'
@@ -129,7 +140,10 @@ def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None
 </body>
 </html>
 '''
-    with open(os.path.join(OUT, fname), "w") as f:
+    html = clean_urls(html)
+    out_path = "blog/index.html" if fname == "blog.html" else fname   # /blog serves the blog index
+    os.makedirs(os.path.dirname(os.path.join(OUT, out_path)), exist_ok=True)
+    with open(os.path.join(OUT, out_path), "w") as f:
         f.write(html)
 
 def card(icon, h, p):
@@ -1183,9 +1197,11 @@ f'''    <section class="page-head">
 STATIC_PAGES = ["", "waitlist.html", "about.html", "services.html", "support-brokerage.html", "self-direction-guide.html",
                 "support-broker-faq.html", "support-broker-capital-region.html", "blog.html",
                 "resources.html", "get-involved.html", "contact.html", "privacy.html", "accessibility.html"]
-SITE_UPDATED = "2026-09-23"
+SITE_UPDATED = "2026-10-08"
 entries = [(u, SITE_UPDATED) for u in STATIC_PAGES + GUIDE_SLUGS] + [(f"blog/{p['slug']}.html", p.get("updated", p["date"])) for p in POSTS]
-urls = "\n".join(f"  <url><loc>{SITE}/{u}</loc><lastmod>{d}</lastmod></url>" for u, d in entries)
+def clean_path(u):
+    return clean_urls('/' + u + '"')[1:-1]
+urls = "\n".join(f"  <url><loc>{SITE}/{clean_path(u)}</loc><lastmod>{d}</lastmod></url>" for u, d in entries)
 with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
     f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
 print(f"Built {len(STATIC_PAGES)} pages, {len(GUIDE_SLUGS)} guide pages and {len(POSTS)} blog posts.")

@@ -63,7 +63,7 @@ Spectrum Arch, Inc. is a New York 501(c)(3) nonprofit based in Clifton Park. We 
 
 A Support Broker helps families plan, build a self-direction budget, hire staff, and keep everything on track. We are completing OPWDD's Support Broker training and authorization, and our waitlist is open for families across Saratoga, Albany, Schenectady, Rensselaer and the Capital Region.
 
-Join the waitlist: spectrumarch.org/waitlist.html
+Join the waitlist: spectrumarch.org/waitlist
 ```
 
 ---
@@ -78,7 +78,7 @@ Hello, Capital Region! We're Spectrum Arch, a new nonprofit in Clifton Park.
 
 Self-Direction lets people with developmental disabilities choose their own supports and staff, and a Support Broker helps families plan it and keep it running. We're getting ready to offer Support Brokerage across Saratoga, Albany, Schenectady and Rensselaer counties.
 
-Our waitlist is open: https://www.spectrumarch.org/waitlist.html
+Our waitlist is open: https://www.spectrumarch.org/waitlist
 ```
 
 **2. Blog: Turning 21**
@@ -87,7 +87,7 @@ Our waitlist is open: https://www.spectrumarch.org/waitlist.html
 
 We wrote a plain-language guide to what ends, what doesn't, and what to do at each age from 15 to 21, so your family isn't caught off guard.
 
-https://www.spectrumarch.org/blog/turning-21-autism-new-york.html
+https://www.spectrumarch.org/blog/turning-21-autism-new-york
 ```
 
 **3. Support Brokerage**
@@ -96,21 +96,21 @@ Thinking about OPWDD Self-Direction? A Support Broker helps you plan, build your
 
 Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region. Families and Care Managers can join our waitlist now.
 
-https://www.spectrumarch.org/waitlist.html
+https://www.spectrumarch.org/waitlist
 ```
 
 **4. For Care Managers**
 ```
 Care Managers: supporting a family that wants to self-direct and needs a Support Broker? With their permission, you can add them to our waitlist and we'll contact them directly.
 
-https://www.spectrumarch.org/waitlist.html#care-managers
+https://www.spectrumarch.org/waitlist#care-managers
 ```
 
 **5. Blog: SSI at 18**
 ```
 Turned down for SSI when your child was younger? At 18, your income stops counting, and it may be worth applying again.
 
-What changes at 18, and what to watch for: https://www.spectrumarch.org/blog/ssi-at-18.html
+What changes at 18, and what to watch for: https://www.spectrumarch.org/blog/ssi-at-18
 ```
 
 Suggested hashtags (use 2–4, not more): `#Autism #CapitalRegionNY #OPWDD #SelfDirection #SaratogaCounty`

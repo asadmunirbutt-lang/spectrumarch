@@ -95,7 +95,9 @@ python3 tools/build.py
 
 **Guide pages** (the Support Brokerage and Self-Direction reference pages in the dropdown menus) live in `content/pages/<slug>.html`, with a header block (title, description, lead, group, updated). To add one to a menu, add its file name to the matching group in `NAV` at the top of `tools/build.py`.
 
-**Blog posts** live in `content/blog/<slug>.html`. Copy an existing post, update the header block (title, description, date, author, tags), write the body in simple HTML, and set `status: published` when it is ready. Anything else (for example `status: draft`) is left out of the site. Posts with a future `date:` go live automatically on that date, and links to them stay plain text until then. The blog index, post pages, and `sitemap.xml` update automatically.
+**Blog posts** live in `content/blog/<slug>.html`. Copy an existing post, update the header block (title, description, date, author, tags), write the body in simple HTML, and set `status: published` when it is ready. Anything else (for example `status: draft`) is left out of the site. Posts with a future `date:` go live automatically on that date, and links to them stay plain text until then.
+
+**Clean URLs:** pages are files like `about.html`, but the site links to `/about`. `staticwebapp.config.json` sets `"trailingSlash": "never"`, so Azure serves `/about` and permanently redirects `/about.html` to it. The build rewrites every internal link, canonical tag and sitemap entry to the clean form; the blog index is generated as `blog/index.html` (served at `/blog`). The blog index, post pages, and `sitemap.xml` update automatically.
 
 The topic plan and writing rules are in `docs/blog-calendar.md`. `tools/`, `content/`, and `docs/` are never deployed.
 

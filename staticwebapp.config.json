@@ -9,15 +9,38 @@
     "Cross-Origin-Opener-Policy": "same-origin"
   },
   "routes": [
-    { "route": "/.git/*", "statusCode": 404 },
-    { "route": "/README.md", "statusCode": 404 },
-    { "route": "/deploy.sh", "statusCode": 404 },
-    { "route": "/assets/*", "headers": { "Cache-Control": "public, max-age=604800" } }
+    {
+      "route": "/blog.html",
+      "redirect": "/blog",
+      "statusCode": 301
+    },
+    {
+      "route": "/.git/*",
+      "statusCode": 404
+    },
+    {
+      "route": "/README.md",
+      "statusCode": 404
+    },
+    {
+      "route": "/deploy.sh",
+      "statusCode": 404
+    },
+    {
+      "route": "/assets/*",
+      "headers": {
+        "Cache-Control": "public, max-age=604800"
+      }
+    }
   ],
   "responseOverrides": {
-    "404": { "rewrite": "/404.html", "statusCode": 404 }
+    "404": {
+      "rewrite": "/404.html",
+      "statusCode": 404
+    }
   },
   "mimeTypes": {
     ".svg": "image/svg+xml"
-  }
+  },
+  "trailingSlash": "never"
 }
