@@ -7,8 +7,23 @@ PHONE = "317-991-0361"
 TEL = "+13179910361"
 EIN = "42-3421753"
 
-NAV = [("index.html","Home"),("support-brokerage.html","Support Brokerage"),("self-direction-guide.html","Self-Direction Guide"),("about.html","About"),
-       ("blog.html","Blog"),("contact.html","Contact"),("waitlist.html","Join the Waitlist")]
+NAV = [("index.html","Home"),
+       ("Support Brokerage", [("support-brokerage.html","What a Support Broker does"),
+                              ("choosing-a-support-broker.html","Choosing a Support Broker"),
+                              ("first-months-with-a-support-broker.html","Your first months with a broker"),
+                              ("who-does-what-in-self-direction.html","Broker, Care Manager, or FI?"),
+                              ("support-broker-faq.html","Support Broker FAQ"),
+                              ("support-broker-capital-region.html","Areas we serve"),
+                              ("for-care-managers.html","For Care Managers")]),
+       ("Self-Direction", [("self-direction-guide.html","Step-by-step guide"),
+                           ("opwdd-eligibility-requirements.html","OPWDD eligibility and diagnoses"),
+                           ("self-direction-budget.html","Self-Direction budget and PRA"),
+                           ("fiscal-intermediary.html","Fiscal Intermediaries"),
+                           ("hiring-self-directed-staff.html","Hiring your own staff"),
+                           ("individual-directed-goods-and-services.html","IDGS: goods and services"),
+                           ("self-direction-budget-changes.html","Budget changes and renewal"),
+                           ("self-direction-for-autistic-adults.html","Self-Direction for autistic adults")]),
+       ("blog.html","Blog"),("about.html","About"),("contact.html","Contact"),("waitlist.html","Join the Waitlist")]
 
 ICON = {
  "home": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>',
@@ -22,9 +37,18 @@ ICON = {
 def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None):
     cur = ' aria-current="page"'
     cta = ' class="nav-cta"'
-    nav = "\n".join(
-        f'        <li><a href="/{"" if h=="index.html" else h}"{cur if h==fname else ""}{cta if h=="waitlist.html" else ""}>{t}</a></li>'
-        for h,t in NAV)
+    items = []
+    for h, t in NAV:
+        if isinstance(t, list):
+            act = ' class="active"' if any(u == fname for u, _ in t) else ""
+            sub = "\n".join(f'              <li><a href="/{u}"{cur if u==fname else ""}>{lbl}</a></li>' for u, lbl in t)
+            items.append(f'''        <li class="has-sub"><details><summary{act}>{h}</summary>
+            <ul class="sub">
+{sub}
+            </ul></details></li>''')
+        else:
+            items.append(f'        <li><a href="/{"" if h=="index.html" else h}"{cur if h==fname else ""}{cta if h=="waitlist.html" else ""}>{t}</a></li>')
+    nav = "\n".join(items)
     canon = SITE + "/" + ("" if fname=="index.html" else fname)
     if full_title is None:
         full_title = "Spectrum Arch, Inc. — Building the Arch to Independence" if fname=="index.html" else f"{title} | Spectrum Arch, Inc."
@@ -1003,6 +1027,14 @@ TODAY = os.environ.get("BUILD_DATE") or datetime.date.today().isoformat()  # BUI
 POSTS = sorted((p for p in map(read_post, glob.glob(os.path.join(BLOG_DIR, "*.html")))
                 if p.get("status") == "published" and p["date"] <= TODAY), key=lambda p: p["date"], reverse=True)
 
+
+PUBLISHED_SLUGS = {p["slug"] for p in POSTS}
+def unlink_future_posts(html):
+    """Links to scheduled (not yet published) posts become plain text until the post goes live."""
+    def fix(m):
+        return m.group(0) if m.group(1) in PUBLISHED_SLUGS else m.group(2)
+    return re.sub(r'<a href="/blog/([a-z0-9-]+)\.html">(.*?)</a>', fix, html)
+
 def nice_date(d):
     dt = datetime.date.fromisoformat(d)
     return f"{dt.strftime('%B')} {dt.day}, {dt.year}"
@@ -1043,7 +1075,7 @@ f'''    <article class="section post">
         <p class="post-meta">By {p["author"]}, {p["author_title"]} &middot; <time datetime="{p["date"]}">{nice_date(p["date"])}</time> &middot; {minutes} min read</p>
         <div class="tags">{tags}</div>
         <div class="post-body">
-{p["body"]}
+{unlink_future_posts(p["body"])}
         </div>
 {author_box(p)}        <div class="callout post-cta">
           <p><strong>Questions about your family's situation?</strong> <a href="/contact.html">Get in touch</a>. We are happy to talk it through, even if the right answer is another organization.</p>
@@ -1085,6 +1117,66 @@ f'''    <section class="page-head">
     </section>
 ''', head_extra=ld(crumbs(("Home", ""), ("Blog", "blog.html"))))
 
+
+# =====================================================================
+# Guide pages (Support Brokerage and Self-Direction reference pages)
+# Each is content/pages/<slug>.html with a header block:
+#   title, description, lead, group (Support Brokerage | Self-Direction),
+#   updated (YYYY-MM-DD), optional full_title
+# =====================================================================
+GUIDE_DIR = os.path.join(OUT, "content", "pages")
+GUIDE_SLUGS = []
+def read_meta(path):
+    raw = open(path, encoding="utf-8").read()
+    m = re.match(r"\s*<!--(.*?)-->\s*(.*)", raw, re.S)
+    meta = {}
+    for line in m.group(1).strip().splitlines():
+        k, _, v = line.partition(":")
+        meta[k.strip()] = v.strip()
+    meta["body"] = m.group(2).strip()
+    meta["slug"] = os.path.splitext(os.path.basename(path))[0]
+    return meta
+
+for gp in sorted(glob.glob(os.path.join(GUIDE_DIR, "*.html"))):
+    g = read_meta(gp)
+    fname = g["slug"] + ".html"
+    GUIDE_SLUGS.append(fname)
+    group = dict((h, t) for h, t in NAV if isinstance(t, list)).get(g["group"], [])
+    related = "\n".join(f'            <li><a href="/{u}">{lbl}</a></li>' for u, lbl in group if u != fname)
+    page(fname, g["title"], g["description"],
+f'''    <section class="page-head">
+      <div class="container narrow">
+        <p class="eyebrow">{g["group"]}</p>
+        <h1>{g["title"]}</h1>
+        <p class="lead">{g["lead"]}</p>
+        <p class="post-meta">Last reviewed {nice_date(g["updated"])}</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container narrow post-body">
+{unlink_future_posts(g["body"])}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <div class="callout">
+          <h2>Looking for a Support Broker in the Capital Region?</h2>
+          <p>Spectrum Arch is in the process of offering Support Brokerage across Saratoga, Albany, Schenectady, Rensselaer and the surrounding counties. <a href="/waitlist.html">Join the waitlist</a> and we will contact you as soon as we can begin.</p>
+        </div>
+        <h2 class="mt-2">More in {g["group"]}</h2>
+        <ul class="related">
+{related}
+        </ul>
+      </div>
+    </section>
+''', head_extra=ld({"@context": "https://schema.org", "@type": "Article", "headline": g["title"], "description": g["description"],
+                    "dateModified": g["updated"], "author": {"@type": "Organization", "name": "Spectrum Arch, Inc."},
+                    "publisher": {"@type": "NGO", "name": "Spectrum Arch, Inc."}, "mainEntityOfPage": SITE + "/" + fname})
+      + ld(crumbs(("Home", ""), (g["group"], "support-brokerage.html" if g["group"] == "Support Brokerage" else "self-direction-guide.html"), (g["title"], fname))),
+     full_title=g.get("full_title") or f'{g["title"]} | Spectrum Arch')
+
 # =====================================================================
 # Sitemap (every indexable page, newest content date)
 # =====================================================================
@@ -1092,8 +1184,8 @@ STATIC_PAGES = ["", "waitlist.html", "about.html", "services.html", "support-bro
                 "support-broker-faq.html", "support-broker-capital-region.html", "blog.html",
                 "resources.html", "get-involved.html", "contact.html", "privacy.html", "accessibility.html"]
 SITE_UPDATED = "2026-09-23"
-entries = [(u, SITE_UPDATED) for u in STATIC_PAGES] + [(f"blog/{p['slug']}.html", p.get("updated", p["date"])) for p in POSTS]
+entries = [(u, SITE_UPDATED) for u in STATIC_PAGES + GUIDE_SLUGS] + [(f"blog/{p['slug']}.html", p.get("updated", p["date"])) for p in POSTS]
 urls = "\n".join(f"  <url><loc>{SITE}/{u}</loc><lastmod>{d}</lastmod></url>" for u, d in entries)
 with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
     f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
-print(f"Built {len(STATIC_PAGES)} pages and {len(POSTS)} blog posts.")
+print(f"Built {len(STATIC_PAGES)} pages, {len(GUIDE_SLUGS)} guide pages and {len(POSTS)} blog posts.")

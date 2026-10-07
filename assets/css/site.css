@@ -291,3 +291,44 @@ main { display: block; }
 @media (prefers-color-scheme: dark) { .form-error { color: #ff8a80; } }
 .form button { border: 0; cursor: pointer; font: inherit; font-weight: 700; }
 #wl-done { margin-top: 1rem; }
+
+/* ----- Dropdown menus ----- */
+.site-nav .has-sub { position: relative; }
+.site-nav summary {
+  list-style: none; cursor: pointer; padding: .5rem .8rem; border-radius: 8px; color: var(--text);
+  display: flex; align-items: center; gap: .35rem;
+}
+.site-nav summary::-webkit-details-marker { display: none; }
+.site-nav summary::after { content: ""; width: .45rem; height: .45rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); }
+.site-nav details[open] summary::after { transform: rotate(-135deg) translateY(-1px); }
+.site-nav summary:hover, .site-nav details[open] summary { background: var(--bg-alt); }
+.site-nav summary.active { color: var(--heading); font-weight: 700; }
+.site-nav .sub {
+  list-style: none; margin: 0; padding: .4rem; display: block;
+  position: absolute; top: calc(100% + .35rem); left: 0; z-index: 50; min-width: 270px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(20,32,46,.12);
+}
+.site-nav .sub a { padding: .55rem .75rem; white-space: nowrap; }
+@media (max-width: 760px) {
+  .site-nav .sub { position: static; box-shadow: none; border: 0; border-left: 2px solid var(--border); border-radius: 0; margin: 0 0 .4rem .9rem; padding: 0 0 0 .4rem; min-width: 0; }
+  .site-nav summary { padding: .75rem .8rem; }
+  .site-nav .sub a { white-space: normal; }
+}
+.related { padding-left: 1.2rem; }
+.related li { margin-bottom: .4rem; }
+
+/* ----- Tables ----- */
+.table-wrap { overflow-x: auto; margin: 0 0 1.5rem; }
+.roles { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-size: .97rem; }
+.roles th, .roles td { text-align: left; vertical-align: top; padding: .75rem .9rem; border-bottom: 1px solid var(--border); }
+.roles thead th { background: var(--bg-alt); color: var(--heading); }
+.roles tbody th { color: var(--heading); white-space: nowrap; }
+@media (max-width: 760px) { .roles tbody th { white-space: normal; } }
+@media (max-width: 760px) {
+  .roles thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .roles, .roles tbody, .roles tr, .roles th, .roles td { display: block; width: 100%; }
+  .roles tr { border-bottom: 1px solid var(--border); padding: .4rem 0; }
+  .roles th, .roles td { border: 0; padding: .3rem .9rem; }
+  .roles tbody th { font-size: 1.05rem; padding-top: .7rem; }
+  .roles td::before { content: attr(data-label) ": "; font-weight: 700; color: var(--heading); }
+}
