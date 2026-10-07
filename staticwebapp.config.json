@@ -10,6 +10,16 @@
   },
   "routes": [
     {
+      "route": "/areas",
+      "redirect": "/support-broker-capital-region",
+      "statusCode": 301
+    },
+    {
+      "route": "/areas/*",
+      "redirect": "/support-broker-capital-region",
+      "statusCode": 301
+    },
+    {
       "route": "/index",
       "redirect": "/",
       "statusCode": 301

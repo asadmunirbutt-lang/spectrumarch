@@ -18,7 +18,7 @@ NAV = [("index.html","Home"),
                               ("first-months-with-a-support-broker.html","Your first months with a broker"),
                               ("who-does-what-in-self-direction.html","Broker, Care Manager, or FI?"),
                               ("support-broker-faq.html","Support Broker FAQ"),
-                              ("areas/index.html","Areas we serve (all NY counties)"),
+                              ("support-broker-capital-region.html","Areas we serve"),
                               ("for-care-managers.html","For Care Managers")]),
        ("Self-Direction", [("self-direction-guide.html","Step-by-step guide"),
                            ("opwdd-eligibility-requirements.html","OPWDD eligibility and diagnoses"),
@@ -125,7 +125,7 @@ def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None
           <li><a href="/support-brokerage.html">Support Brokerage</a></li>
           <li><a href="/waitlist.html">Join the waitlist</a></li>
           <li><a href="/support-broker-faq.html">Support Broker FAQ</a></li>
-          <li><a href="/areas.html">Areas we serve</a></li>
+          <li><a href="/support-broker-capital-region.html">Areas we serve</a></li>
           <li><a href="/services.html">Residential (on hold)</a></li>
           <li><a href="/resources.html">Resources</a></li>
           <li><a href="/get-involved.html">Get involved</a></li>
@@ -139,7 +139,7 @@ def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None
         <ul>
           <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
           <li><a href="tel:{TEL}">{PHONE}</a></li>
-          <li>Clifton Park, NY 12065</li>
+          <li>29 Westbury Court<br>Clifton Park, NY 12065</li>
         </ul>
       </div>
       <p class="legal">&copy; <span id="year">2026</span> Spectrum Arch, Inc. Spectrum Arch is a 501(c)(3) nonprofit organization (EIN {EIN}). Donations are tax-deductible to the extent allowed by law. This website shares general information and is not medical or legal advice.</p>
@@ -840,7 +840,7 @@ f'''    <section class="page-head">
       <div class="container">
         <h2>Learn more</h2>
 {SB_LINKS}
-        <p class="mt-2">Serving families across <a href="/support-broker-capital-region.html">Albany, Saratoga, Schenectady, Rensselaer, Warren, Washington, Columbia, and Greene counties</a>.</p>
+        <p class="mt-2">Serving families across <a href="/support-broker-capital-region.html">Saratoga, Albany, Schenectady, Rensselaer and seven more Capital Region counties</a>.</p>
       </div>
     </section>
 ''', head_extra=ld({
@@ -946,7 +946,7 @@ FAQ = [
  ("can-i-change-broker", "Can I change Support Brokers?",
   "Yes. You choose your Support Broker, and you can change if the fit is not right. Your Care Manager can help with the switch."),
  ("which-areas", "Which areas does Spectrum Arch serve?",
-  "We are based in Clifton Park and focus on Saratoga County and the Capital Region, including Albany, Schenectady, Rensselaer, Warren, Washington, Columbia, and Greene counties."),
+  "We are based in Clifton Park and plan to meet families in person across Saratoga, Albany, Schenectady, Rensselaer, Warren, Washington, Fulton, Montgomery, Schoharie, Columbia, and Greene counties. Families elsewhere in New York are welcome to contact us."),
  ("are-you-accepting-clients", "Is Spectrum Arch accepting Support Brokerage clients now?",
   "Not yet. We are in the process of offering Support Brokerage and are completing OPWDD's Support Broker training and authorization. Families and Care Managers can join our waitlist now, so we can reach out as soon as we can begin."),
 ]
@@ -988,41 +988,72 @@ f'''    <section class="page-head">
  full_title="Support Broker & Self-Direction FAQ (NY) | Spectrum Arch")
 
 # ---------------- Areas served ----------------
-county_html = "\n".join(f'''          <div class="card">
-            <h3>{c}</h3>
-            <p>Including {towns}.</p>
-          </div>''' for c, towns in COUNTIES)
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from counties import NY_COUNTIES, REGION_NAMES, PRIMARY, TOWNS
 
-page("support-broker-capital-region.html", "Support Brokers in Saratoga, Albany & the Capital Region",
- "Support Brokerage for OPWDD Self-Direction across New York's Capital Region: Saratoga, Albany, Schenectady, Rensselaer, Warren, Washington, Columbia, and Greene counties.",
+_order = ["Saratoga", "Albany", "Schenectady", "Rensselaer", "Warren", "Washington", "Fulton", "Montgomery", "Schoharie", "Columbia", "Greene"]
+county_html = "\n".join(f"""          <div class="card">
+            <h3>{c} County</h3>
+            <p>Including {TOWNS[c]}.</p>
+          </div>""" for c in _order)
+_region_rows = []
+for r in sorted(REGION_NAMES):
+    name = REGION_NAMES[r].split(": ", 1)[1]
+    offices = ", ".join(dict.fromkeys(o for _, _, rr, o in NY_COUNTIES if rr == r))
+    n = sum(1 for _, _, rr, _ in NY_COUNTIES if rr == r)
+    _region_rows.append(f"<tr><td>Region {r}</td><td>{name}</td><td>{n}</td><td>{offices}</td></tr>")
+region_rows = "\n            ".join(_region_rows)
+
+page("support-broker-capital-region.html", "Areas we serve",
+ "Where Spectrum Arch plans to provide Support Brokerage for OPWDD Self-Direction: Saratoga, Albany, Schenectady, Rensselaer and seven more Capital Region counties, and what families elsewhere in New York can do.",
 f'''    <section class="page-head">
       <div class="container">
-        <h1>Support Brokerage across the Capital Region</h1>
-        <p class="lead">Spectrum Arch is based in Clifton Park, Saratoga County. We are building Support Brokerage services for families throughout the Capital Region of New York.</p>
+        <h1>Areas we serve</h1>
+        <p class="lead">Spectrum Arch is based in Clifton Park, in Saratoga County. We plan to meet families in person across eleven Capital Region counties, and we're glad to talk with any New York family about Self-Direction.</p>
       </div>
     </section>
 
     <section class="section alt">
       <div class="container">
-        <h2>Counties and communities</h2>
+        <h2>Our in-person service area</h2>
+        <p>These are the counties we can reach comfortably from Clifton Park for home visits, planning meetings, and the in-person meetings OPWDD expects. All of them are in OPWDD's Region 3.</p>
         <div class="grid grid-2">
 {county_html}
         </div>
-        <p class="mt-2">Don't see your town? <a href="/contact.html">Contact us</a>. If we can't help, we will point you to someone who can.</p>
+        <p class="mt-2">Don't see your town? <a href="/contact.html">Contact us</a>. If we can't help, we'll point you to someone who can.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div>
-          <h2>Local help matters</h2>
-          <p>A Support Broker who knows the area can connect you with nearby community activities, day programs, respite options, and staff, and can meet in person when that helps. Spectrum Arch is based in Clifton Park and focused on the Capital Region.</p>
-          <p>Support Brokerage at Spectrum Arch is in process; see <a href="/support-brokerage.html">our Support Brokerage page</a> for where things stand.</p>
+      <div class="container narrow">
+        <h2>Can a Support Broker work outside their county?</h2>
+        <p>Yes. OPWDD authorizes Support Brokers to work anywhere in New York State, not county by county. When brokers apply, they choose the regions and counties they're willing to serve, and that authorization is renewed every year.</p>
+        <p>What limits distance is the meetings. OPWDD requires the Support Broker and the person to meet in person, unless a virtual meeting has been approved ahead of time and written into the person's Life Plan. A good broker also visits, gets to know the household, and knows local staff, programs, and respite options. That's hard to do from three hours away, which is why we focus on the Capital Region.</p>
+
+        <h2>Live somewhere else in New York?</h2>
+        <p>Every part of the state is covered by one of OPWDD's five regions, each with its own regional office and Front Door, the starting point for eligibility and services:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Region</th><th>Area</th><th>Counties</th><th>Regional offices</th></tr></thead>
+            <tbody>
+            {region_rows}
+            </tbody>
+          </table>
         </div>
+        <p>To reach the Front Door in your area, use <a href="https://opwdd.ny.gov/contact-us" rel="noopener" target="_blank">OPWDD's contact page</a>. In the Capital District, the Front Door number is <a href="tel:+15183880398">518-388-0398</a>.</p>
+        <p>You're still welcome to <a href="/contact.html">contact us</a>. We're happy to talk with families anywhere in New York and will tell you honestly whether we can serve you, or help you think about finding a Support Broker closer to home. Our <a href="/choosing-a-support-broker.html">guide to choosing a Support Broker</a> lists the questions to ask.</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container narrow">
+        <h2>Where we are now</h2>
+        <p>Spectrum Arch is completing OPWDD's Support Broker training and authorization and is not providing Support Brokerage services yet. If you live in one of the counties above, <a href="/waitlist.html">join the waitlist</a> and we'll contact you as soon as we can begin.</p>
       </div>
     </section>
 ''', head_extra=ld(crumbs(("Home", ""), ("Support Brokerage", "support-brokerage.html"), ("Areas we serve", "support-broker-capital-region.html"))),
- full_title="Support Brokers in Saratoga & Albany Counties, NY | Spectrum Arch")
+ full_title="Areas We Serve: Support Brokers in Saratoga, Albany & the Capital Region | Spectrum Arch")
 
 # =====================================================================
 # Policies
@@ -1312,123 +1343,7 @@ f'''    <section class="page-head">
      full_title=g.get("full_title") or f'{g["title"]} | Spectrum Arch')
 
 
-# =====================================================================
-# Areas we serve: one page per New York county + an index (tools/counties.py)
-# =====================================================================
-import sys
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from counties import NY_COUNTIES, REGION_NAMES, NYC_NAMES, PRIMARY, CDTA, TOWNS, FRONT_DOOR, slug as county_slug
-
-AREA_PAGES = ["areas/index.html"]
-def county_label(c):
-    return f"{NYC_NAMES[c]} ({c} County)" if c in NYC_NAMES else f"{c} County"
-
-for county, seat, region, office in NY_COUNTIES:
-    fname = f"areas/{county_slug(county)}.html"
-    AREA_PAGES.append(fname)
-    label = county_label(county)
-    primary = county in PRIMARY
-    nyc = county in NYC_NAMES
-    peers = [c for c, _, r, o in NY_COUNTIES if o == office and c != county]
-    peer_links = ", ".join(f'<a href="/areas/{county_slug(c)}.html">{county_label(c)}</a>' for c in peers)
-    fd = FRONT_DOOR.get(office)
-    fd_line = (f"Call OPWDD's Front Door for the {office} area at <a href=\"tel:+1{fd.replace('-', '')}\">{fd}</a>, or see "
-               if fd else "Find the Front Door contact for your area on ")
-    if primary:
-        towns = TOWNS.get(county)
-        serve = f"""        <h2>Can Spectrum Arch serve families in {label}?</h2>
-        <p><strong>Yes. {label} is in our primary service area.</strong> We are based in Clifton Park, and once our Support Broker authorization is in place we plan to meet families in {label} in person{f", including in {towns}" if towns else ""}.</p>"""
-        if county in CDTA:
-            serve += f"""
-        <p>For getting around, families in {label} can use CDTA's STAR paratransit. See <a href="/blog/cdta-star-paratransit-capital-region">our STAR guide</a>.</p>"""
-    else:
-        serve = f"""        <h2>Can Spectrum Arch serve families in {label}?</h2>
-        <p>Possibly. OPWDD authorizes Support Brokers <strong>statewide</strong>, so we are not limited to the Capital Region. But OPWDD requires the broker and the family to <strong>meet in person</strong> unless a virtual meeting has been pre-approved and documented in the person's Life Plan, and some of the work goes better face to face.</p>
-        <p>{label} is outside our primary service area around Clifton Park. If you're looking for a Support Broker here, <a href="/contact.html">contact us</a>. We'll tell you honestly whether we can serve your family well, including how in-person meetings would work, and if we can't, we'll help you think about how to find a broker closer to home.</p>"""
-    medicaid = ("New York City residents apply for Medicaid through the Human Resources Administration (HRA) or the NY State of Health marketplace."
-                if nyc else f"Apply through the {county} County Department of Social Services, or through the NY State of Health marketplace.")
-    body = f"""    <section class="page-head">
-      <div class="container narrow">
-        <p class="post-kicker"><a href="/areas.html">Areas we serve</a> <span aria-hidden="true">/</span> {REGION_NAMES[region].split(':')[0]}</p>
-        <h1>Support Brokerage and Self-Direction in {label}, New York</h1>
-        <p class="lead">{"Spectrum Arch is a Clifton Park nonprofit getting ready to offer Support Brokerage, and " + label + " is in our primary service area." if primary else "Spectrum Arch is a nonprofit in Clifton Park, in New York's Capital Region. Here is how families in " + label + " can get started with OPWDD Self-Direction, and how to reach us."}</p>
-        <div class="btn-row"><a class="btn btn-primary" href="/contact.html">Contact us</a><a class="btn btn-ghost" href="/waitlist.html">Join the waitlist</a></div>
-      </div>
-    </section>
-
-    <section class="section alt">
-      <div class="container narrow post-body">
-        <h2>{label} at a glance</h2>
-        <ul class="facts">
-          <li><strong>{"Borough" if nyc else "County seat"}:</strong> {seat}</li>
-          <li><strong>OPWDD region:</strong> {REGION_NAMES[region]}</li>
-          <li><strong>OPWDD regional office:</strong> {office}</li>
-          <li><strong>Spectrum Arch service:</strong> {"Primary area, in person" if primary else "Contact us to discuss"}</li>
-        </ul>
-
-{serve}
-
-        <h2>Getting started with Self-Direction in {label}</h2>
-        <ol>
-          <li><strong>OPWDD eligibility.</strong> {fd_line}<a href="https://opwdd.ny.gov/contact-us" rel="noopener" target="_blank">OPWDD's contact page</a>. Our guide to <a href="/opwdd-eligibility-requirements.html">eligibility and qualifying diagnoses</a> explains what OPWDD reviews.</li>
-          <li><strong>Medicaid.</strong> {medicaid} See <a href="/blog/medicaid-and-opwdd-services">Medicaid and OPWDD services</a>.</li>
-          <li><strong>A Care Manager.</strong> Choose a Care Coordination Organization that serves {label}. See <a href="/blog/choosing-a-care-coordination-organization">questions to ask a CCO</a>.</li>
-          <li><strong>Request Self-Direction,</strong> then choose a Support Broker and a Fiscal Intermediary. Our <a href="/self-direction-guide.html">step-by-step guide</a> walks through it.</li>
-          <li><strong>Children under 3?</strong> Start with {"New York City's" if nyc else county + " County's"} Early Intervention program. See <a href="/blog/early-intervention-new-york">Early Intervention in New York</a>.</li>
-        </ol>
-
-        <h2>Also served by the {office} office</h2>
-        <p>{peer_links}. See <a href="/areas.html">all 62 counties</a>.</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container narrow">
-        <div class="callout">
-          <h2>Talk to us about {label}</h2>
-          <p>Spectrum Arch is in the process of offering Support Brokerage and completing OPWDD's Support Broker authorization. We're not serving families yet, but you can <a href="/contact.html">contact us</a> with questions or <a href="/waitlist.html">join the waitlist</a>, and we'll be in touch as soon as we can begin.</p>
-          <p>Email <a href="mailto:{EMAIL}">{EMAIL}</a> or call <a href="tel:{TEL}">{PHONE}</a>.</p>
-        </div>
-      </div>
-    </section>
-"""
-    desc = (f"Support Brokerage for OPWDD Self-Direction in {label}, NY: in-person service from Spectrum Arch in Clifton Park, plus where to start with eligibility, Medicaid and care management."
-            if primary else
-            f"OPWDD Self-Direction and Support Brokerage in {label}, NY: where to start locally ({office} regional office), and how to contact Spectrum Arch about broker services.")
-    page(fname, f"Support Brokerage in {label}, NY", desc, unlink_future_posts(body),
-         head_extra=ld({"@context": "https://schema.org", "@type": "Service", "name": f"Support Brokerage in {label}, New York",
-                        "serviceType": "Support Brokerage", "provider": {"@type": "NGO", "name": "Spectrum Arch, Inc.", "url": SITE + "/"},
-                        "areaServed": {"@type": "AdministrativeArea", "name": f"{county} County, New York"}, "url": SITE + "/" + fname})
-                   + ld(crumbs(("Home", ""), ("Areas we serve", "areas/index.html"), (label, fname))),
-         full_title=f"Support Broker in {label}, NY | Spectrum Arch")
-
-# Index of all counties, grouped by OPWDD region and office
-groups = []
-for r in sorted(REGION_NAMES):
-    offices = []
-    for o in dict.fromkeys(o for c, _, rr, o in NY_COUNTIES if rr == r):
-        pa = ' class="primary-area"'
-        items = "".join(f'<li><a href="/areas/{county_slug(c)}.html"{pa if c in PRIMARY else ""}>{county_label(c)}</a></li>'
-                        for c, _, rr, oo in NY_COUNTIES if oo == o and rr == r)
-        offices.append(f'          <div class="area-office"><h3>{o}</h3><ul>{items}</ul></div>')
-    groups.append(f'        <section class="area-region"><h2>{REGION_NAMES[r]}</h2>\n        <div class="area-offices">\n' + "\n".join(offices) + "\n        </div></section>")
-page("areas/index.html", "Areas we serve",
- "Support Brokerage and OPWDD Self-Direction in every New York county: Spectrum Arch's in-person service area around Clifton Park and the Capital Region, and how families elsewhere in New York can reach us.",
-f'''    <section class="page-head">
-      <div class="container">
-        <h1>Areas we serve</h1>
-        <p class="lead">Spectrum Arch is based in Clifton Park. OPWDD authorizes Support Brokers statewide, and we plan to meet families in person across our primary area: Saratoga, Albany, Schenectady, Rensselaer, Warren, Washington, Fulton, Montgomery, Schoharie, Columbia and Greene counties.</p>
-        <p>Outside that area? Pick your county for local first steps, and <a href="/contact.html">contact us</a>. OPWDD requires in-person meetings unless a virtual meeting is pre-approved in the Life Plan, so we'll talk honestly about whether we can serve you well.</p>
-        <p class="legend"><span class="primary-area">Highlighted</span> = primary, in-person service area</p>
-      </div>
-    </section>
-
-    <section class="section alt">
-      <div class="container">
-{chr(10).join(groups)}
-      </div>
-    </section>
-''', head_extra=ld(crumbs(("Home", ""), ("Areas we serve", "areas/index.html"))), full_title="Areas We Serve: Support Brokerage Across New York | Spectrum Arch")
+AREA_PAGES = []
 
 # =====================================================================
 # Sitemap (every indexable page, newest content date)

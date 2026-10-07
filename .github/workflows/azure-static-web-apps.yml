@@ -36,7 +36,7 @@ jobs:
       - name: Stage public files
         run: |
           mkdir _site
-          cp -R *.html *.txt favicon.svg favicon.ico sitemap.xml staticwebapp.config.json assets blog areas _site/
+          cp -R *.html *.txt favicon.svg favicon.ico sitemap.xml staticwebapp.config.json assets blog _site/
 
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
