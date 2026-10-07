@@ -7,8 +7,8 @@ PHONE = "317-991-0361"
 TEL = "+13179910361"
 EIN = "42-3421753"
 
-NAV = [("index.html","Home"),("about.html","About"),("services.html","Services"),("support-brokerage.html","Support Brokerage"),
-       ("blog.html","Blog"),("resources.html","Resources"),("get-involved.html","Get Involved"),("contact.html","Contact")]
+NAV = [("index.html","Home"),("support-brokerage.html","Support Brokerage"),("self-direction-guide.html","Self-Direction Guide"),("about.html","About"),
+       ("blog.html","Blog"),("contact.html","Contact"),("waitlist.html","Join the Waitlist")]
 
 ICON = {
  "home": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>',
@@ -21,8 +21,9 @@ ICON = {
 
 def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None):
     cur = ' aria-current="page"'
+    cta = ' class="nav-cta"'
     nav = "\n".join(
-        f'        <li><a href="/{"" if h=="index.html" else h}"{cur if h==fname else ""}>{t}</a></li>'
+        f'        <li><a href="/{"" if h=="index.html" else h}"{cur if h==fname else ""}{cta if h=="waitlist.html" else ""}>{t}</a></li>'
         for h,t in NAV)
     canon = SITE + "/" + ("" if fname=="index.html" else fname)
     if full_title is None:
@@ -74,13 +75,15 @@ def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None
     <div class="container">
       <div>
         <h2>Spectrum Arch, Inc.</h2>
-        <p>Building the Arch to Independence. Person-centered residential services for adults with autism and developmental disabilities in Saratoga County and the Capital District.</p>
+        <p>Building the Arch to Independence. Support Brokerage for people with developmental disabilities and their families who self-direct their OPWDD services, in Saratoga County and the Capital Region.</p>
       </div>
       <div>
         <h2>Explore</h2>
         <ul>
-          <li><a href="/services.html">Services</a></li>
           <li><a href="/support-brokerage.html">Support Brokerage</a></li>
+          <li><a href="/waitlist.html">Join the waitlist</a></li>
+          <li><a href="/support-broker-faq.html">Support Broker FAQ</a></li>
+          <li><a href="/services.html">Residential (on hold)</a></li>
           <li><a href="/resources.html">Resources</a></li>
           <li><a href="/get-involved.html">Get involved</a></li>
           <li><a href="/blog.html">Blog</a></li>
@@ -117,24 +120,60 @@ ICON["pulse"]='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 ICON["check"]='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>'
 
 STATUS = '''        <div class="callout">
-          <h3>Opening in 2027</h3>
-          <p>Spectrum Arch is seeking OPWDD certification as a residential services provider, and we expect our first home to open in early 2027. We are not accepting placements yet, but families, care managers, and referral sources are welcome to <a href="/contact.html">contact us</a> now to join our interest list.</p>
+          <h3>Residential homes: on hold</h3>
+          <p>Opening community homes remains a long-term goal for Spectrum Arch, but that work is on hold for now. Our current focus is Support Brokerage. We will post updates here if that changes.</p>
         </div>'''
 
-ORG_LD = '  <script type="application/ld+json">\n  {\n    "@context": "https://schema.org",\n    "@type": "NGO",\n    "name": "Spectrum Arch, Inc.",\n    "alternateName": "Spectrum Arch",\n    "slogan": "Building the Arch to Independence",\n    "url": "https://www.spectrumarch.org/",\n    "logo": "https://www.spectrumarch.org/assets/icons/icon-512.png",\n    "description": "Person-centered, community-integrated residential services for adults with autism spectrum disorder and developmental disabilities in Saratoga County and the Capital District of New York.",\n    "nonprofitStatus": "Nonprofit501c3",\n    "taxID": "42-3421753",\n    "foundingDate": "2026-06-15",\n    "email": "info@spectrumarch.org",\n    "telephone": "+1-317-991-0361",\n    "address": {\n      "@type": "PostalAddress",\n      "streetAddress": "29 Westbury Court",\n      "addressLocality": "Clifton Park",\n      "addressRegion": "NY",\n      "postalCode": "12065",\n      "addressCountry": "US"\n    },\n    "areaServed": ["Saratoga County, NY", "Capital District, NY"],\n    "founder": { "@type": "Person", "name": "Asad M. Butt" }\n  }\n  </script>\n'
+ORG_LD = '  <script type="application/ld+json">\n  {\n    "@context": "https://schema.org",\n    "@type": "NGO",\n    "name": "Spectrum Arch, Inc.",\n    "alternateName": "Spectrum Arch",\n    "slogan": "Building the Arch to Independence",\n    "url": "https://www.spectrumarch.org/",\n    "logo": "https://www.spectrumarch.org/assets/icons/icon-512.png",\n    "description": "Support Brokerage for people with developmental disabilities and their families who self-direct their OPWDD services in Saratoga County and the Capital Region of New York.",\n    "nonprofitStatus": "Nonprofit501c3",\n    "taxID": "42-3421753",\n    "foundingDate": "2026-06-15",\n    "email": "info@spectrumarch.org",\n    "telephone": "+1-317-991-0361",\n    "address": {\n      "@type": "PostalAddress",\n      "streetAddress": "29 Westbury Court",\n      "addressLocality": "Clifton Park",\n      "addressRegion": "NY",\n      "postalCode": "12065",\n      "addressCountry": "US"\n    },\n    "areaServed": ["Saratoga County, NY", "Albany County, NY", "Schenectady County, NY", "Rensselaer County, NY", "Capital Region, NY"],\n    "founder": { "@type": "Person", "name": "Asad M. Butt" }\n  }\n  </script>\n'
+
+# =====================================================================
+# Support Brokerage section
+# =====================================================================
+import json
+
+# One place to change once OPWDD approval for Support Brokerage is in hand.
+SB_STATUS = '''        <div class="callout">
+          <h3>Where we are</h3>
+          <p>Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region, and we are working through OPWDD's Support Broker training and authorization. We are not serving Self-Direction clients yet. <a href="/waitlist.html">Join the waitlist</a> and we will contact you as soon as we can begin.</p>
+        </div>'''
+
+SB_LINKS = '''        <div class="grid grid-3">
+          <a class="card card-link" href="/support-brokerage.html"><h3>Support Brokerage</h3><p>What a Support Broker does and how we help.</p></a>
+          <a class="card card-link" href="/self-direction-guide.html"><h3>Self-Direction guide</h3><p>Every step, from OPWDD eligibility to hiring staff.</p></a>
+          <a class="card card-link" href="/support-broker-faq.html"><h3>Questions and answers</h3><p>Cost, timing, choosing a broker, and more.</p></a>
+        </div>'''
+
+def ld(obj):
+    return '  <script type="application/ld+json">\n' + json.dumps(obj, indent=2) + '\n  </script>\n'
+
+def crumbs(*items):
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + "/" + u}
+                                for i, (n, u) in enumerate(items)]}
+
+COUNTIES = [
+    ("Saratoga County", "Saratoga Springs, Clifton Park, Halfmoon, Malta, Ballston Spa, Wilton, Mechanicville, and Waterford"),
+    ("Albany County", "Albany, Colonie, Latham, Guilderland, Bethlehem, Delmar, Cohoes, and Watervliet"),
+    ("Schenectady County", "Schenectady, Niskayuna, Glenville, Scotia, and Rotterdam"),
+    ("Rensselaer County", "Troy, Rensselaer, East Greenbush, North Greenbush, and Brunswick"),
+    ("Warren County", "Glens Falls, Queensbury, and Lake George"),
+    ("Washington County", "Hudson Falls, Fort Edward, Greenwich, and Granville"),
+    ("Columbia County", "Hudson, Chatham, Kinderhook, and Valatie"),
+    ("Greene County", "Catskill, Coxsackie, and Cairo"),
+]
 
 # ---------------- Home ----------------
 page("index.html", "Home",
- "Spectrum Arch, Inc. provides person-centered, community-integrated residential services for adults with autism and developmental disabilities in Saratoga County and the Capital District, NY.",
+ "Spectrum Arch is a Clifton Park nonprofit offering Support Brokerage for OPWDD Self-Direction in Saratoga, Albany, Schenectady, Rensselaer and the Capital Region. Join our waitlist.",
 f'''    <section class="hero">
       <div class="container">
         <div>
           <span class="eyebrow">Building the Arch to Independence</span>
-          <h1>A home, a community, and a future for adults with autism</h1>
-          <p class="lead">Spectrum Arch provides safe, person-centered, community-integrated residential services that enable adults with autism spectrum disorder and developmental disabilities to live with dignity, independence, and purpose.</p>
+          <h1>Support Brokerage for families who self-direct in the Capital Region</h1>
+          <p class="lead">OPWDD Self-Direction lets people with developmental disabilities choose their own supports, staff, and schedule. A Support Broker helps you plan it, budget it, and keep it running. Spectrum Arch is a local nonprofit getting ready to do exactly that.</p>
           <div class="btn-row">
-            <a class="btn btn-primary" href="/contact.html">Join our interest list</a>
-            <a class="btn btn-ghost" href="/services.html">Our services</a>
+            <a class="btn btn-primary" href="/waitlist.html">Join the waitlist</a>
+            <a class="btn btn-ghost" href="/support-brokerage.html">How Support Brokerage works</a>
           </div>
         </div>
         <img class="hero-art" src="/assets/img/logo.svg" alt="">
@@ -144,62 +183,63 @@ f'''    <section class="hero">
     <section class="section alt">
       <div class="container grid grid-2">
         <div>
-          <span class="eyebrow">The need</span>
-          <h2>At 21, school services end. Too often, there is nowhere to go next.</h2>
-          <p>When young adults with autism turn 21, school-based services stop, and many families find there are no residential options waiting. Adults stay at home with parents who are now in their 70s and 80s, with no plan for the future.</p>
+          <h2>Self-Direction gives families real choices. It also comes with a lot of paperwork.</h2>
+          <p>With Self-Direction you can hire people you trust, build a week around the person instead of a program's schedule, and spend an approved budget on what actually helps. To get there, someone has to build a Circle of Support, turn goals into a budget, get it approved, hire staff through a Fiscal Intermediary, and keep it all on track year after year.</p>
+          <p>That is the Support Broker's job. People who self-direct with Budget Authority work with one.</p>
         </div>
-        <div class="grid">
-          <div class="card"><p class="stat">200&ndash;300</p><p>young adults aged 21&ndash;30 with autism in the Capital District estimated to need residential support</p></div>
-          <div class="card"><p class="stat">Fewer than 50</p><p>residential openings currently available in the region</p></div>
-          <div class="card"><p class="stat">18&ndash;36 months</p><p>typical OPWDD waitlist for residential services</p></div>
+        <div class="card">
+          <h3>A Support Broker helps you:</h3>
+          <ul class="check-list">
+            <li>Understand your Self-Direction options in plain language</li>
+            <li>Bring together your Circle of Support</li>
+            <li>Turn Life Plan goals into a self-direction budget</li>
+            <li>Find, hire, and keep good staff</li>
+            <li>Adjust the plan as needs change, and stay ready for annual renewals</li>
+          </ul>
+          <p><a href="/support-brokerage.html">More about what a Support Broker does</a></p>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <span class="eyebrow">What we do</span>
-        <h2>Individual Residential Alternative (IRA) homes</h2>
-        <p class="lead">Homes in ordinary residential neighborhoods for 5&ndash;8 adults each, with trained staff on hand 24 hours a day, every day of the year.</p>
-        <div class="grid grid-2">
-{card("home","Residential support","Round-the-clock care, help with daily living skills, and positive behavioral support.")}
-{card("pulse","Health &amp; wellness","Health care coordination, medication management, and preventive care.")}
-{card("people","Community &amp; employment","Taking part in community life, and supported employment for residents who want to work.")}
-{card("check","Person-centered planning","A service plan built around each person, regular communication with families, and quarterly reviews.")}
+      <div class="container grid grid-2">
+{SB_STATUS}
+        <div>
+          <h2>Why join the waitlist now?</h2>
+          <p>Getting Self-Direction started takes time: eligibility, waiver enrollment, a Care Manager, and a budget. If you join now, we can talk through where you are in that process and contact you as soon as we are authorized to begin.</p>
+          <p>Joining is free and doesn't commit you to anything.</p>
+          <div class="btn-row"><a class="btn btn-primary" href="/waitlist.html">Join the waitlist</a></div>
         </div>
-        <div class="btn-row"><a class="btn btn-ghost" href="/services.html">Learn more about our services</a></div>
       </div>
     </section>
 
     <section class="section alt">
-      <div class="container grid grid-2">
-        <div>
-          <span class="eyebrow">Self-Direction</span>
-          <h2>Support Brokerage for families who self-direct</h2>
-          <p>OPWDD Self-Direction lets people with developmental disabilities choose their own supports, staff, and schedule. A Support Broker helps you plan, build a budget, and put it all in place. Spectrum Arch is preparing to offer Support Brokerage across the Capital Region.</p>
-          <div class="btn-row">
-            <a class="btn btn-primary" href="/support-brokerage.html">About Support Brokerage</a>
-            <a class="btn btn-ghost" href="/self-direction-guide.html">Self-Direction guide</a>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Common questions</h3>
-          <ul class="list-plain">
-            <li><a href="/support-broker-faq.html#what-does-a-support-broker-do">What does a Support Broker do?</a></li>
-            <li><a href="/support-broker-faq.html#how-much-does-it-cost">Do families pay for Support Brokerage?</a></li>
-            <li><a href="/support-broker-faq.html#how-do-i-get-started">How do I get started with Self-Direction?</a></li>
-            <li><a href="/support-broker-capital-region.html">Which counties do you serve?</a></li>
-          </ul>
-        </div>
+      <div class="container">
+        <h2>Start here</h2>
+{SB_LINKS}
+        <p class="mt-2">Serving families in <a href="/support-broker-capital-region.html">Saratoga, Albany, Schenectady, Rensselaer, and the surrounding counties</a>. Help is available in English, Urdu, Hindi, Punjabi, and Pashto.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-{STATUS}
+      <div class="container grid grid-2">
+        <div>
+          <h2>From our blog</h2>
+          <ul class="list-plain">
+            <li><a href="/blog/turning-21-autism-new-york.html">Turning 21 with autism in New York: what ends, what doesn't, and what to do first</a></li>
+            <li><a href="/blog/self-direction-or-agency-services.html">Self-Direction or agency services? Questions to help your family decide</a></li>
+            <li><a href="/blog/what-a-fiscal-intermediary-does.html">What a Fiscal Intermediary does in OPWDD Self-Direction</a></li>
+          </ul>
+          <p><a href="/blog.html">All posts</a></p>
+        </div>
+        <div class="card">
+          <h3>For Care Managers</h3>
+          <p>Supporting a family that wants to self-direct? You can add them to our waitlist with their permission, and we will contact them directly.</p>
+          <p><a href="/waitlist.html#care-managers">Refer a family</a></p>
+        </div>
       </div>
     </section>
-''', head_extra=ORG_LD)
+''', head_extra=ORG_LD, full_title="Support Broker in Saratoga & Albany, NY | Spectrum Arch, Inc.")
 
 # ---------------- About ----------------
 page("about.html", "About us",
@@ -207,7 +247,7 @@ page("about.html", "About us",
 f'''    <section class="page-head">
       <div class="container">
         <h1>Building the Arch to Independence</h1>
-        <p class="lead">Spectrum Arch, Inc. is a New York nonprofit based in Clifton Park that is creating community homes for adults with autism spectrum disorder and developmental disabilities.</p>
+        <p class="lead">Spectrum Arch, Inc. is a New York nonprofit based in Clifton Park. We support people with autism and developmental disabilities and their families, starting with Support Brokerage for families who self-direct their OPWDD services.</p>
       </div>
     </section>
 
@@ -278,9 +318,9 @@ f'''    <section class="page-head">
       <div class="container">
         <h2>Our goals</h2>
         <div class="grid grid-2">
-{card("home","Open our first IRA home","Open a six-person Individual Residential Alternative home in Saratoga County, with 24/7 staff, and grow to more homes across the Capital District.")}
-{card("path","Offer Support Brokerage","Help families who self-direct their OPWDD services plan, budget, and hire staff. We are in the process of offering Support Brokerage now.")}
+{card("path","Offer Support Brokerage","Our first priority. Help families who self-direct their OPWDD services plan, budget, and hire staff, across Saratoga County and the Capital Region.")}
 {card("check","Become a Fiscal Intermediary","In the future, seek OPWDD approval as a Fiscal Intermediary, so families can self-direct with one trusted local partner handling payroll and budget tracking.")}
+{card("home","Residential homes (on hold)","Community homes for adults with autism remain a long-term goal. That work is on hold while we focus on Support Brokerage.")}
 {card("book","Educate and connect families","Publish clear, practical guides on adult services in New York, and connect families with the right local resources.")}
         </div>
       </div>
@@ -288,30 +328,30 @@ f'''    <section class="page-head">
 
     <section class="section">
       <div class="container">
-        <h2>Our path to opening</h2>
+        <h2>Where we are</h2>
         <ol class="timeline">
-          <li><strong>Fall 2026</strong> &mdash; OPWDD new provider orientation and application for certification as a residential operator</li>
-          <li><strong>Late 2026</strong> &mdash; OPWDD review and certification</li>
-          <li><strong>Early 2027</strong> &mdash; First home opens in Saratoga County, serving 6 residents</li>
-          <li><strong>Years 2&ndash;3</strong> &mdash; Additional homes across the Capital District</li>
+          <li><strong>June 2026</strong> &mdash; Incorporated in New York State; board of directors established</li>
+          <li><strong>July 2026</strong> &mdash; IRS 501(c)(3) determination received</li>
+          <li><strong>Now</strong> &mdash; Completing OPWDD Support Broker training and authorization; waitlist open</li>
+          <li><strong>Next</strong> &mdash; Begin serving families on the waitlist once authorized</li>
         </ol>
       </div>
     </section>
 ''')
 
 # ---------------- Services ----------------
-page("services.html", "Services",
+page("services.html", "Residential services (on hold)",
  "Spectrum Arch Individual Residential Alternative (IRA) homes: 24/7 residential support, health and wellness, community integration, and person-centered planning for adults 21+.",
 f'''    <section class="page-head">
       <div class="container">
-        <h1>Individual Residential Alternative (IRA) homes</h1>
-        <p class="lead">Community homes where adults with autism and developmental disabilities live together with trained staff support, in typical residential neighborhoods close to community resources.</p>
+        <h1>Residential homes: a long-term goal</h1>
+        <p class="lead">Spectrum Arch was founded with the goal of opening Individual Residential Alternative (IRA) homes: community homes where adults with autism live together with trained staff support. That work is on hold for now while we focus on <a href="/support-brokerage.html">Support Brokerage</a>. This page describes the model we hope to offer in the future.</p>
       </div>
     </section>
 
     <section class="section alt">
       <div class="container">
-        <h2>Who we serve</h2>
+        <h2>Who it would serve</h2>
         <div class="grid grid-3">
           <div class="card"><h3>Adults 21 and older</h3><p>People with autism spectrum disorder and related developmental disabilities who are eligible for OPWDD services.</p></div>
           <div class="card"><h3>5&ndash;8 residents per home</h3><p>Small homes, so every resident gets personal attention and a real sense of home.</p></div>
@@ -322,7 +362,7 @@ f'''    <section class="page-head">
 
     <section class="section">
       <div class="container">
-        <h2>What each resident receives</h2>
+        <h2>The model we plan to offer</h2>
         <div class="grid grid-2">
           <div class="card">
             <div class="icon">{ICON["home"]}</div>
@@ -364,20 +404,11 @@ f'''    <section class="page-head">
       </div>
     </section>
 
-    <section class="section alt">
-      <div class="container">
-        <div class="callout">
-          <h2>Self-directing instead?</h2>
-          <p>Not every family chooses a residential home. If you are directing your own services through OPWDD Self-Direction, see our <a href="/support-brokerage.html">Support Brokerage</a> page and <a href="/self-direction-guide.html">step-by-step Self-Direction guide</a>.</p>
-        </div>
-      </div>
-    </section>
-
     <section class="section">
       <div class="container grid grid-2">
         <div>
-          <h2>Where we serve</h2>
-          <p>Our first home will be in <strong>Saratoga County</strong>. We plan to expand across the Capital District, including Albany, Schenectady, Troy, and the surrounding counties.</p>
+          <h2>Why it matters</h2>
+          <p>When young adults with autism turn 21, school services end. In the Capital District, residential openings are scarce and waits for OPWDD residential services commonly run 18 to 36 months, so many adults stay at home with aging parents.</p>
         </div>
 {STATUS}
       </div>
@@ -439,8 +470,8 @@ f'''    <section class="page-head">
     <section class="section alt">
       <div class="container grid grid-3">
 {card("heart","Donate","Spectrum Arch, Inc. is a 501(c)(3) nonprofit (EIN " + EIN + "). Donations are tax-deductible to the extent allowed by law. Contact us to find out how to give.")}
-{card("people","Join our team","We will be hiring Direct Support Professionals ahead of our 2027 opening. If you want meaningful work supporting adults with autism, get in touch.")}
-{card("path","Partner with us","Care managers, clinicians, schools, employers, and community groups: help us build strong connections for our residents.")}
+{card("people","Support Brokers","Are you an OPWDD-authorized Support Broker, or working toward authorization, and want to serve Capital Region families? We would like to hear from you.")}
+{card("path","Partner with us","Care Managers, Fiscal Intermediaries, schools, and community groups: help us connect self-directing families with the support they need.")}
       </div>
     </section>
 
@@ -458,11 +489,11 @@ f'''    <section class="page-head">
 
 # ---------------- Contact ----------------
 page("contact.html", "Contact",
- "Contact Spectrum Arch, Inc. in Clifton Park, NY about residential services, referrals, employment, and partnerships.",
+ "Contact Spectrum Arch, Inc. in Clifton Park, NY about Support Brokerage, the waitlist, referrals, and partnerships.",
 f'''    <section class="page-head">
       <div class="container">
         <h1>Get in touch</h1>
-        <p class="lead">Families, care managers, referral sources, job seekers, and partners are all welcome to reach out.</p>
+        <p class="lead">Families, Care Managers, Support Brokers, and partners are all welcome to reach out. Looking for Support Brokerage? <a href="/waitlist.html">Join the waitlist</a>.</p>
       </div>
     </section>
 
@@ -488,7 +519,10 @@ f'''    <section class="page-head">
 
     <section class="section">
       <div class="container grid grid-2">
-{STATUS}
+        <div class="callout">
+          <h3>Need a Support Broker?</h3>
+          <p>We are building a waitlist of Capital Region families who want Support Brokerage. <a href="/waitlist.html">Add your family</a> and we will contact you as soon as we can begin.</p>
+        </div>
         <div class="callout">
           <h3>Please protect your privacy</h3>
           <p>Don't email medical records, Medicaid numbers, or other ID numbers. A short description of what you need is enough to start, and we'll arrange a secure way to share details if needed.</p>
@@ -496,6 +530,120 @@ f'''    <section class="page-head">
       </div>
     </section>
 ''')
+
+
+# ---------------- Waitlist ----------------
+COUNTY_OPTS = "\n".join(f'              <option>{c}</option>' for c, _ in COUNTIES) + "\n              <option>Other / not sure</option>"
+page("waitlist.html", "Join the Support Brokerage waitlist",
+ "Join Spectrum Arch's Support Brokerage waitlist for OPWDD Self-Direction in Saratoga, Albany, Schenectady, Rensselaer and the Capital Region. Free, no commitment.",
+f'''    <section class="page-head">
+      <div class="container narrow">
+        <h1>Join the Support Brokerage waitlist</h1>
+        <p class="lead">Tell us a little about your family and we will contact you as soon as we can begin offering Support Brokerage. It's free, and joining doesn't commit you to anything.</p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container narrow">
+        <form id="waitlist-form" class="form" novalidate>
+          <fieldset>
+            <legend>About you</legend>
+            <label for="wl-name">Your name <span class="req">(required)</span></label>
+            <input id="wl-name" name="name" type="text" autocomplete="name" required>
+
+            <label for="wl-email">Email <span class="req">(required)</span></label>
+            <input id="wl-email" name="email" type="email" autocomplete="email" required>
+
+            <label for="wl-phone">Phone</label>
+            <input id="wl-phone" name="phone" type="tel" autocomplete="tel">
+
+            <label for="wl-role">You are</label>
+            <select id="wl-role" name="role">
+              <option>A parent or family member</option>
+              <option>The person who would receive services</option>
+              <option>A Care Manager or other professional</option>
+              <option>Other</option>
+            </select>
+
+            <label for="wl-county">County <span class="req">(required)</span></label>
+            <select id="wl-county" name="county" required>
+              <option value="">Choose one</option>
+{COUNTY_OPTS}
+            </select>
+          </fieldset>
+
+          <fieldset>
+            <legend>Where things stand</legend>
+            <label for="wl-age">Age of the person who would self-direct</label>
+            <select id="wl-age" name="age">
+              <option>Not sure / prefer not to say</option>
+              <option>Under 18</option><option>18 to 21</option><option>22 to 30</option><option>31 or older</option>
+            </select>
+
+            <label for="wl-eligible">OPWDD eligibility</label>
+            <select id="wl-eligible" name="eligibility">
+              <option>Not sure</option>
+              <option>Found eligible</option>
+              <option>Applied, waiting for a decision</option>
+              <option>Haven't applied yet</option>
+            </select>
+
+            <label for="wl-sd">Self-Direction</label>
+            <select id="wl-sd" name="selfdirection">
+              <option>Just learning about it</option>
+              <option>Planning to request it</option>
+              <option>Requested or approved, need a broker</option>
+              <option>Already self-directing, looking for a new broker</option>
+            </select>
+
+            <label for="wl-when">When would you need a Support Broker?</label>
+            <select id="wl-when" name="timing">
+              <option>As soon as possible</option>
+              <option>In the next 3 to 6 months</option>
+              <option>Just planning ahead</option>
+            </select>
+
+            <label for="wl-contact">Best way to reach you</label>
+            <select id="wl-contact" name="contactpref">
+              <option>Email</option><option>Phone call</option><option>Text</option>
+            </select>
+
+            <label for="wl-lang">Preferred language</label>
+            <select id="wl-lang" name="language">
+              <option>English</option><option>Urdu</option><option>Hindi</option><option>Punjabi</option><option>Pashto</option><option>Other</option>
+            </select>
+
+            <label for="wl-notes">Anything else you'd like us to know?</label>
+            <textarea id="wl-notes" name="notes" rows="4" maxlength="800"></textarea>
+            <p class="hint">Please don't include medical records, diagnoses, or ID numbers. A short note is plenty.</p>
+          </fieldset>
+
+          <label class="checkbox"><input id="wl-consent" name="consent" type="checkbox" required> I agree that Spectrum Arch may contact me about Support Brokerage. I understand the waitlist does not guarantee services.</label>
+
+          <p id="wl-error" class="form-error" role="alert" hidden></p>
+          <button class="btn btn-primary" type="submit">Join the waitlist</button>
+          <p class="hint">Pressing the button opens a pre-filled email in your email app. Press <strong>Send</strong> to finish. Nothing is shared until you do.</p>
+          <div id="wl-done" class="callout" hidden tabindex="-1">
+            <h3>Almost done: please press Send in your email app.</h3>
+            <p>If your email app didn't open, email the same details to <a href="mailto:{EMAIL}">{EMAIL}</a> or call <a href="tel:{TEL}">{PHONE}</a>.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="care-managers">
+      <div class="container narrow">
+        <h2>Care Managers: refer a family</h2>
+        <p>With the family's permission, you can use the form above: choose "A Care Manager or other professional" and put the family's preferred contact details in the note. Or email us at <a href="mailto:{EMAIL}?subject=Support%20Brokerage%20referral">{EMAIL}</a>.</p>
+        <h2>What happens next</h2>
+        <ol class="steps">
+          <li><h3>We confirm we got it</h3><p>We reply to let you know you're on the list.</p></li>
+          <li><h3>We stay in touch</h3><p>We'll send occasional updates on our progress, never more than you'd want.</p></li>
+          <li><h3>We call when we can begin</h3><p>Once we are authorized, we contact families on the list in order and talk through where each family is in the Self-Direction process.</p></li>
+        </ol>
+      </div>
+    </section>
+''', head_extra='  <script src="/assets/js/waitlist.js" defer></script>\n', full_title="Join the Support Brokerage Waitlist | Spectrum Arch")
 
 # ---------------- 404 ----------------
 page("404.html", "Page not found", "The page you were looking for could not be found.",
@@ -508,42 +656,6 @@ page("404.html", "Page not found", "The page you were looking for could not be f
     </section>
 ''', noindex=True)
 
-# =====================================================================
-# Support Brokerage section
-# =====================================================================
-import json
-
-# One place to change once OPWDD approval for Support Brokerage is in hand.
-SB_STATUS = '''        <div class="callout">
-          <h3>Support Brokerage: in process</h3>
-          <p>Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region. We are not accepting Self-Direction clients yet. Families and Care Managers can <a href="/contact.html">contact us</a> to join our interest list.</p>
-        </div>'''
-
-SB_LINKS = '''        <div class="grid grid-3">
-          <a class="card card-link" href="/support-brokerage.html"><h3>Support Brokerage</h3><p>What a Support Broker does and how we help.</p></a>
-          <a class="card card-link" href="/self-direction-guide.html"><h3>Self-Direction guide</h3><p>Every step, from OPWDD eligibility to hiring staff.</p></a>
-          <a class="card card-link" href="/support-broker-faq.html"><h3>Questions and answers</h3><p>Cost, timing, choosing a broker, and more.</p></a>
-        </div>'''
-
-def ld(obj):
-    return '  <script type="application/ld+json">\n' + json.dumps(obj, indent=2) + '\n  </script>\n'
-
-def crumbs(*items):
-    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
-            "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + "/" + u}
-                                for i, (n, u) in enumerate(items)]}
-
-COUNTIES = [
-    ("Saratoga County", "Saratoga Springs, Clifton Park, Halfmoon, Malta, Ballston Spa, Wilton, Mechanicville, and Waterford"),
-    ("Albany County", "Albany, Colonie, Latham, Guilderland, Bethlehem, Delmar, Cohoes, and Watervliet"),
-    ("Schenectady County", "Schenectady, Niskayuna, Glenville, Scotia, and Rotterdam"),
-    ("Rensselaer County", "Troy, Rensselaer, East Greenbush, North Greenbush, and Brunswick"),
-    ("Warren County", "Glens Falls, Queensbury, and Lake George"),
-    ("Washington County", "Hudson Falls, Fort Edward, Greenwich, and Granville"),
-    ("Columbia County", "Hudson, Chatham, Kinderhook, and Valatie"),
-    ("Greene County", "Catskill, Coxsackie, and Cairo"),
-]
-
 # ---------------- Support Brokerage (pillar) ----------------
 page("support-brokerage.html", "Support Broker Services in Albany & the Capital Region, NY",
  "Support Broker services for OPWDD Self-Direction in Albany, Saratoga, Schenectady, Troy, and the Capital Region of New York. Learn how a Support Broker helps you plan, budget, and hire staff.",
@@ -552,7 +664,7 @@ f'''    <section class="page-head">
         <h1>Support Broker services in New York's Capital Region</h1>
         <p class="lead">Self-Direction puts people with developmental disabilities and their families in charge of their own supports. A Support Broker is your guide through it: planning, budgeting, hiring, and keeping everything running smoothly.</p>
         <div class="btn-row">
-          <a class="btn btn-primary" href="/contact.html">Join our interest list</a>
+          <a class="btn btn-primary" href="/waitlist.html">Join the waitlist</a>
           <a class="btn btn-ghost" href="/self-direction-guide.html">Read the Self-Direction guide</a>
         </div>
       </div>
@@ -719,7 +831,7 @@ FAQ = [
  ("which-areas", "Which areas does Spectrum Arch serve?",
   "We are based in Clifton Park and focus on Saratoga County and the Capital Region, including Albany, Schenectady, Rensselaer, Warren, Washington, Columbia, and Greene counties."),
  ("are-you-accepting-clients", "Is Spectrum Arch accepting Support Brokerage clients now?",
-  "Not yet. We are preparing to offer Support Brokerage and welcome families and Care Managers to join our interest list now, so we can reach out as soon as we can begin."),
+  "Not yet. We are in the process of offering Support Brokerage and are completing OPWDD's Support Broker training and authorization. Families and Care Managers can join our waitlist now, so we can reach out as soon as we can begin."),
 ]
 faq_html = "\n".join(f'''          <details class="faq" id="{i}">
             <summary>{q}</summary>
@@ -803,18 +915,19 @@ page("privacy.html", "Privacy policy",
 f'''    <section class="page-head">
       <div class="container">
         <h1>Privacy policy</h1>
-        <p class="lead">Last updated September 23, 2026.</p>
+        <p class="lead">Last updated October 7, 2026.</p>
       </div>
     </section>
 
     <section class="section alt">
       <div class="container">
         <h2>What this website collects</h2>
-        <p>Very little. This website has no sign-up forms, no advertising, no analytics or tracking scripts, and it does not set cookies.</p>
+        <p>Very little. This website has no advertising, no analytics or tracking scripts, and it does not set cookies.</p>
+        <p>Our waitlist form does not send anything to this website. When you press the button, it opens a pre-filled email in your own email app, addressed to {EMAIL}. Nothing is shared until you choose to send that email.</p>
         <p>Like almost every website, our hosting provider, Microsoft Azure, keeps standard technical logs (such as IP address, browser type, and the pages requested) to keep the site running and secure. We do not use these logs to identify visitors.</p>
 
         <h2>When you contact us</h2>
-        <p>If you email or call us, we use what you share only to respond to you and, if you ask, to add you to our interest list. We do not sell, rent, or trade your information.</p>
+        <p>If you email or call us, we use what you share only to respond to you and, if you ask, to add you to our waitlist. We do not sell, rent, or trade your information.</p>
         <p>Please do not send medical records, Medicaid numbers, or other ID numbers by email. If we need sensitive details, we will arrange a secure way to share them.</p>
 
         <h2>Links to other websites</h2>
@@ -975,7 +1088,7 @@ f'''    <section class="page-head">
 # =====================================================================
 # Sitemap (every indexable page, newest content date)
 # =====================================================================
-STATIC_PAGES = ["", "about.html", "services.html", "support-brokerage.html", "self-direction-guide.html",
+STATIC_PAGES = ["", "waitlist.html", "about.html", "services.html", "support-brokerage.html", "self-direction-guide.html",
                 "support-broker-faq.html", "support-broker-capital-region.html", "blog.html",
                 "resources.html", "get-involved.html", "contact.html", "privacy.html", "accessibility.html"]
 SITE_UPDATED = "2026-09-23"

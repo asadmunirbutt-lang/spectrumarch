@@ -39,31 +39,31 @@ Not deployed to the website. This folder is for your use only.
 
 **Instagram** (150-character limit)
 ```
-Nonprofit building community homes & Self-Direction support for adults with autism in NY's Capital Region. Opening 2027.
+Nonprofit Support Brokerage for families who self-direct OPWDD services in NY's Capital Region. Waitlist open.
 ```
 
 **X** (160-character limit)
 ```
-501(c)(3) nonprofit in Clifton Park, NY. Building person-centered residential services and Self-Direction support for adults with autism. Opening 2027.
+501(c)(3) nonprofit in Clifton Park, NY. Support Brokerage for people with developmental disabilities and families who self-direct. Waitlist open.
 ```
 
 **Facebook "Intro"** (255-character limit)
 ```
-Spectrum Arch, Inc. is a 501(c)(3) nonprofit in Clifton Park, NY, building safe, person-centered community homes and Self-Direction support for adults with autism and developmental disabilities across the Capital Region.
+Spectrum Arch, Inc. is a 501(c)(3) nonprofit in Clifton Park, NY, offering Support Brokerage for people with autism and developmental disabilities and their families who self-direct their OPWDD services in the Capital Region.
 ```
 
 **LinkedIn tagline** (120-character limit)
 ```
-Building the Arch to Independence: residential services and Self-Direction support for adults with autism.
+Building the Arch to Independence: Support Brokerage for families who self-direct in NY's Capital Region.
 ```
 
 **LinkedIn "About" / Facebook "About" / Google Business description** (up to 750 characters)
 ```
-Spectrum Arch, Inc. is a New York 501(c)(3) nonprofit based in Clifton Park. We are building safe, person-centered, community-integrated residential services that let adults with autism spectrum disorder and developmental disabilities live with dignity, independence, and purpose.
+Spectrum Arch, Inc. is a New York 501(c)(3) nonprofit based in Clifton Park. We support people with autism and developmental disabilities and their families, starting with Support Brokerage for families who self-direct their OPWDD services.
 
-At 21, school services end and many young adults have nowhere to go next. Our first Individual Residential Alternative (IRA) home in Saratoga County is planned for 2027, pending OPWDD certification. We are also in the process of offering Support Brokerage for families who self-direct their OPWDD services.
+A Support Broker helps families plan, build a self-direction budget, hire staff, and keep everything on track. We are completing OPWDD's Support Broker training and authorization, and our waitlist is open for families across Saratoga, Albany, Schenectady, Rensselaer and the Capital Region.
 
-Families and Care Managers can join our interest list at spectrumarch.org.
+Join the waitlist: spectrumarch.org/waitlist.html
 ```
 
 ---
@@ -76,9 +76,9 @@ Post these over the first two weeks. Add a real photo whenever you have one; pos
 ```
 Hello, Capital Region! We're Spectrum Arch, a new nonprofit in Clifton Park.
 
-Too many young adults with autism reach 21 with nowhere to go when school services end. We're working to change that: with community homes in typical neighborhoods, 24/7 support, and help for families who self-direct their OPWDD services.
+Self-Direction lets people with developmental disabilities choose their own supports and staff, and a Support Broker helps families plan it and keep it running. We're getting ready to offer Support Brokerage across Saratoga, Albany, Schenectady and Rensselaer counties.
 
-Our first home is planned for 2027. Learn more and join our interest list: https://www.spectrumarch.org
+Our waitlist is open: https://www.spectrumarch.org/waitlist.html
 ```
 
 **2. Blog: Turning 21**
@@ -94,17 +94,16 @@ https://www.spectrumarch.org/blog/turning-21-autism-new-york.html
 ```
 Thinking about OPWDD Self-Direction? A Support Broker helps you plan, build your budget, and hire staff.
 
-Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region. Families and Care Managers can join our interest list now.
+Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region. Families and Care Managers can join our waitlist now.
 
-https://www.spectrumarch.org/support-brokerage.html
+https://www.spectrumarch.org/waitlist.html
 ```
 
-**4. Mission**
+**4. For Care Managers**
 ```
-Our mission: safe, person-centered, community-integrated homes that let adults with autism and developmental disabilities live with dignity, independence, and purpose.
+Care Managers: supporting a family that wants to self-direct and needs a Support Broker? With their permission, you can add them to our waitlist and we'll contact them directly.
 
-Building the Arch to Independence. 🏠
-https://www.spectrumarch.org/about.html
+https://www.spectrumarch.org/waitlist.html#care-managers
 ```
 
 **5. Blog: SSI at 18**
