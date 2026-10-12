@@ -5,7 +5,8 @@ SITE = "https://www.spectrumarch.org"
 # Google tag IDs for Ad Grants conversion tracking. Public values (they appear
 # in page source). Leave empty to load no tracking at all.
 GA_ID = os.environ.get("GA_MEASUREMENT_ID", "G-MR3WG3T594")   # GA4 property: spectrumarch.org
-ADS_ID = os.environ.get("GOOGLE_ADS_ID", "")      # e.g. AW-XXXXXXXXXX
+ADS_ID = os.environ.get("GOOGLE_ADS_ID", "AW-18508824359")   # Google Ads (Ad Grants) account tag
+ADS_LEAD = os.environ.get("GOOGLE_ADS_LEAD", "AW-18508824359/Wl01CNDAxpodEKf-2PlE")  # "Submit lead form" conversion
 TRACKING = bool(GA_ID or ADS_ID)
 EMAIL = "info@spectrumarch.org"
 PHONE = "317-991-0361"
@@ -73,7 +74,7 @@ def page(fname, title, desc, body, head_extra="", noindex=False, full_title=None
     else:
         seo = f'  <link rel="canonical" href="{canon}">\n'
     og_url = "" if noindex else f'  <meta property="og:url" content="{canon}">\n'
-    analytics_tag = (f'  <script src="/assets/js/analytics.js" data-ga="{GA_ID}" data-ads="{ADS_ID}" defer></script>' if TRACKING else "")
+    analytics_tag = (f'  <script src="/assets/js/analytics.js" data-ga="{GA_ID}" data-ads="{ADS_ID}" data-ads-lead="{ADS_LEAD}" defer></script>' if TRACKING else "")
     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
