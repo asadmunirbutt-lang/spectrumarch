@@ -180,7 +180,7 @@ import json
 # One place to change once OPWDD approval for Support Brokerage is in hand.
 SB_STATUS = '''        <div class="callout">
           <h3>Where we are</h3>
-          <p>Spectrum Arch is in the process of offering Support Brokerage in Saratoga County and across the Capital Region, and we are working through OPWDD's Support Broker training and authorization. We are not providing Support Brokerage services yet. In the meantime, we publish <a href="/self-direction-guide.html">free guides</a> for New York families and offer free consultations to families as part of our community help. <a href="/waitlist.html">Join the waitlist</a> and we will contact you as soon as we can begin.</p>
+          <p>Spectrum Arch works with OPWDD-authorized Support Brokers who serve families through our organization across Saratoga County and the Capital Region. <a href="/waitlist.html">Join our list</a> and we'll contact you to talk through where you are and match you with a broker. We also publish <a href="/self-direction-guide.html">free guides</a> for New York families and offer free consultations as part of our community help.</p>
         </div>'''
 
 SB_LINKS = '''        <div class="grid grid-3">
@@ -247,7 +247,7 @@ f'''    <section class="hero">
         <div>
           <span class="eyebrow">Building the Arch to Independence</span>
           <h1>Support Brokerage for families who self-direct in the Capital Region</h1>
-          <p class="lead">OPWDD Self-Direction lets people with developmental disabilities choose their own supports, staff, and schedule. A Support Broker helps you plan it, budget it, and keep it running. Spectrum Arch is a local nonprofit getting ready to do exactly that.</p>
+          <p class="lead">OPWDD Self-Direction lets people with developmental disabilities choose their own supports, staff, and schedule. A Support Broker helps you plan it, budget it, and keep it running. Spectrum Arch, a local nonprofit, connects Capital Region families with OPWDD-authorized Support Brokers who do exactly that.</p>
           <div class="btn-row">
             <a class="btn btn-primary" href="/waitlist.html">Join the waitlist</a>
             <a class="btn btn-ghost" href="/support-brokerage.html">How Support Brokerage works</a>
@@ -282,8 +282,8 @@ f'''    <section class="hero">
       <div class="container grid grid-2">
 {SB_STATUS}
         <div>
-          <h2>Why join the waitlist now?</h2>
-          <p>Getting Self-Direction started takes time: eligibility, waiver enrollment, a Care Manager, and a budget. If you join now, we can talk through where you are in that process and contact you as soon as we are authorized to begin.</p>
+          <h2>Why reach out now?</h2>
+          <p>Getting Self-Direction started takes time: eligibility, waiver enrollment, a Care Manager, and a budget. If you contact us now, we can talk through where you are in that process and match you with a broker when you're ready for one.</p>
           <p>Joining is free and doesn't commit you to anything.</p>
           <div class="btn-row"><a class="btn btn-primary" href="/waitlist.html">Join the waitlist</a></div>
         </div>
@@ -359,7 +359,7 @@ f'''    <section class="page-head">
         <ul>
           <li><strong>Publishes free, plain-language guides</strong> for New York families on OPWDD eligibility, Self-Direction, budgets, hiring staff, school transitions, benefits, and planning for the future. See the <a href="/self-direction-guide.html">Self-Direction guide</a> and our <a href="/blog.html">blog</a>.</li>
           <li><strong>Offers free consultations to families</strong> as part of our community help: we talk through where a family is in the process and point them to the right next step, such as OPWDD's Front Door, a Care Coordination Organization, or county services.</li>
-          <li><strong>Keeps a waitlist</strong> of Capital Region families who want a Support Broker, so we can begin serving them as soon as our OPWDD Support Broker authorization is complete.</li>
+          <li><strong>Connects families with OPWDD-authorized Support Brokers</strong> who work with Spectrum Arch, and keeps a list of Capital Region families who want one so we can match them as brokers have availability.</li>
         </ul>
         <p>Residential services remain a long-term goal. You can read about the <a href="/services.html">model we hope to offer</a> when the state reopens applications.</p>
       </div>
@@ -458,7 +458,7 @@ f'''    <section class="page-head">
         <ol class="timeline">
           <li><strong>June 2026</strong> &mdash; Incorporated in New York State; board of directors established</li>
           <li><strong>July 2026</strong> &mdash; IRS 501(c)(3) determination received</li>
-          <li><strong>Now</strong> &mdash; Completing OPWDD Support Broker training and authorization; waitlist open</li>
+          <li><strong>Now</strong> &mdash; Working with OPWDD-authorized Support Brokers and matching families from our list</li>
           <li><strong>Next</strong> &mdash; Begin serving families on the waitlist once authorized</li>
         </ol>
       </div>
@@ -647,7 +647,7 @@ f'''    <section class="page-head">
       <div class="container grid grid-2">
         <div class="callout">
           <h3>Need a Support Broker?</h3>
-          <p>We are building a waitlist of Capital Region families who want Support Brokerage. <a href="/waitlist.html">Add your family</a> and we will contact you as soon as we can begin.</p>
+          <p>Spectrum Arch works with OPWDD-authorized Support Brokers. <a href="/waitlist.html">Add your family to our list</a> and we'll contact you to talk through next steps.</p>
         </div>
         <div class="callout">
           <h3>Please protect your privacy</h3>
@@ -659,19 +659,9 @@ f'''    <section class="page-head">
 
 
 # ---------------- Waitlist ----------------
-COUNTY_OPTS = "\n".join(f'              <option>{c}</option>' for c, _ in COUNTIES) + "\n              <option>Other / not sure</option>"
-page("waitlist.html", "Join the Support Brokerage waitlist",
- "Join Spectrum Arch's Support Brokerage waitlist for OPWDD Self-Direction in Saratoga, Albany, Schenectady, Rensselaer and the Capital Region. Free, no commitment.",
-f'''    <section class="page-head">
-      <div class="container narrow">
-        <h1>Join the Support Brokerage waitlist</h1>
-        <p class="lead">Tell us a little about your family and we will contact you as soon as we can begin offering Support Brokerage. It's free, and joining doesn't commit you to anything.</p>
-      </div>
-    </section>
-
-    <section class="section alt">
-      <div class="container narrow">
-        <form id="waitlist-form" class="form" novalidate>
+_WL_COUNTIES = ["Saratoga", "Albany", "Schenectady", "Rensselaer", "Warren", "Washington", "Fulton", "Montgomery", "Schoharie", "Columbia", "Greene"]
+COUNTY_OPTS = "\n".join(f'              <option>{c} County</option>' for c in _WL_COUNTIES) + "\n              <option>Another New York county</option>\n              <option>Other / not sure</option>"
+WAITLIST_FORM = f'''        <form id="waitlist-form" class="form" novalidate>
           <fieldset>
             <legend>About you</legend>
             <label for="wl-name">Your name <span class="req">(required)</span></label>
@@ -744,7 +734,7 @@ f'''    <section class="page-head">
             <p class="hint">Please don't include medical records, diagnoses, or ID numbers. A short note is plenty.</p>
           </fieldset>
 
-          <label class="checkbox"><input id="wl-consent" name="consent" type="checkbox" required> I agree that Spectrum Arch may contact me about Support Brokerage. I understand the waitlist does not guarantee services.</label>
+          <label class="checkbox"><input id="wl-consent" name="consent" type="checkbox" required> I agree that Spectrum Arch may contact me about Support Brokerage. I understand joining the list does not guarantee services.</label>
 
           <p id="wl-error" class="form-error" role="alert" hidden></p>
           <button class="btn btn-primary" type="submit">Join the waitlist</button>
@@ -754,7 +744,19 @@ f'''    <section class="page-head">
             <p>If your email app didn't open, email the same details to <a href="mailto:{EMAIL}">{EMAIL}</a> or call <a href="tel:{TEL}">{PHONE}</a>.</p>
           </div>
         </form>
+'''
+page("waitlist.html", "Join the Support Brokerage waitlist",
+ "Join Spectrum Arch's Support Brokerage waitlist for OPWDD Self-Direction in Saratoga, Albany, Schenectady, Rensselaer and the Capital Region. Free, no commitment.",
+f'''    <section class="page-head">
+      <div class="container narrow">
+        <h1>Join the Support Brokerage waitlist</h1>
+        <p class="lead">Tell us a little about your family. We'll contact you to talk through where you are in Self-Direction and match you with one of the OPWDD-authorized Support Brokers who work with Spectrum Arch. It's free, and joining doesn't commit you to anything.</p>
       </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container narrow">
+{WAITLIST_FORM}      </div>
     </section>
 
     <section class="section" id="care-managers">
@@ -764,8 +766,8 @@ f'''    <section class="page-head">
         <h2>What happens next</h2>
         <ol class="steps">
           <li><h3>We confirm we got it</h3><p>We reply to let you know you're on the list.</p></li>
-          <li><h3>We stay in touch</h3><p>We'll send occasional updates on our progress, never more than you'd want.</p></li>
-          <li><h3>We call when we can begin</h3><p>Once we are authorized, we contact families on the list in order and talk through where each family is in the Self-Direction process.</p></li>
+          <li><h3>We talk it through</h3><p>We call or email to learn where you are in the Self-Direction process and what you need. This conversation is free.</p></li>
+          <li><h3>We match you with a broker</h3><p>When you're ready for a Support Broker, we introduce you to an OPWDD-authorized broker who works with Spectrum Arch, based on your county, needs, and language. If our brokers are fully booked, you stay on the list and we contact families in order.</p></li>
         </ol>
       </div>
     </section>
@@ -957,7 +959,7 @@ FAQ = [
  ("which-areas", "Which areas does Spectrum Arch serve?",
   "We are based in Clifton Park and plan to meet families in person across Saratoga, Albany, Schenectady, Rensselaer, Warren, Washington, Fulton, Montgomery, Schoharie, Columbia, and Greene counties. Families elsewhere in New York are welcome to contact us."),
  ("are-you-accepting-clients", "Is Spectrum Arch accepting Support Brokerage clients now?",
-  "Not yet. We are in the process of offering Support Brokerage and are completing OPWDD's Support Broker training and authorization. Families and Care Managers can join our waitlist now, so we can reach out as soon as we can begin."),
+  "Yes. Spectrum Arch works with OPWDD-authorized Support Brokers who serve families through our organization. Families and Care Managers can join our list or contact us, and we'll talk through where you are and match you with a broker as availability allows."),
 ]
 faq_html = "\n".join(f'''          <details class="faq" id="{i}">
             <summary>{q}</summary>
@@ -1058,7 +1060,7 @@ f'''    <section class="page-head">
     <section class="section alt">
       <div class="container narrow">
         <h2>Where we are now</h2>
-        <p>Spectrum Arch is completing OPWDD's Support Broker training and authorization and is not providing Support Brokerage services yet. If you live in one of the counties above, <a href="/waitlist.html">join the waitlist</a> and we'll contact you as soon as we can begin.</p>
+        <p>Spectrum Arch works with OPWDD-authorized Support Brokers who serve families in the counties above. <a href="/waitlist.html">Join our list</a> and we'll contact you to talk through next steps and match you with a broker.</p>
       </div>
     </section>
 ''', head_extra=ld(crumbs(("Home", ""), ("Support Brokerage", "support-brokerage.html"), ("Areas we serve", "support-broker-capital-region.html"))),
@@ -1337,7 +1339,7 @@ f'''    <section class="page-head">
       <div class="container narrow">
         <div class="callout">
           <h2>Looking for a Support Broker in the Capital Region?</h2>
-          <p>Spectrum Arch is in the process of offering Support Brokerage across Saratoga, Albany, Schenectady, Rensselaer and the surrounding counties. <a href="/waitlist.html">Join the waitlist</a> and we will contact you as soon as we can begin.</p>
+          <p>Spectrum Arch connects families across Saratoga, Albany, Schenectady, Rensselaer and the surrounding counties with OPWDD-authorized Support Brokers. <a href="/waitlist.html">Join our list</a> and we'll contact you to talk through next steps.</p>
         </div>
         <h2 class="mt-2">More in {g["group"]}</h2>
         <ul class="related">
@@ -1353,6 +1355,148 @@ f'''    <section class="page-head">
 
 
 AREA_PAGES = []
+
+# =====================================================================
+# Ad Grants landing pages (noindex; not in nav or sitemap)
+# =====================================================================
+WL_JS = '  <script src="/assets/js/waitlist.js" defer></script>\n'
+
+page("find-a-support-broker.html", "Find an OPWDD Support Broker",
+ "Spectrum Arch connects families in Saratoga, Albany, Schenectady, Rensselaer and the Capital Region with OPWDD-authorized Support Brokers. Join our list and we'll call you.",
+f'''    <section class="page-head">
+      <div class="container narrow">
+        <span class="eyebrow">Capital Region nonprofit &middot; 501(c)(3)</span>
+        <h1>Find an OPWDD Support Broker in the Capital Region</h1>
+        <p class="lead">Spectrum Arch connects families in Saratoga, Albany, Schenectady, Rensselaer and seven more counties with OPWDD-authorized Support Brokers who work with our nonprofit. Tell us about your family, and we'll call you to talk it through.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="#join">Join our list</a>
+          <a class="btn btn-ghost" href="tel:{TEL}">Call {PHONE}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container grid grid-3">
+        <div class="card"><h2 class="h3">OPWDD-authorized brokers</h2><p>Every broker we match you with is authorized by OPWDD and works with Spectrum Arch.</p></div>
+        <div class="card"><h2 class="h3">Local to you</h2><p>We serve <a href="/support-broker-capital-region.html">11 Capital Region counties</a>, close enough to meet in person, as OPWDD expects.</p></div>
+        <div class="card"><h2 class="h3">Free to talk</h2><p>The first conversation is free. Support Brokerage itself is an OPWDD waiver service, so families don't usually pay out of pocket.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <h2>What a Support Broker does</h2>
+        <p>If you self-direct your OPWDD services with Budget Authority, you work with a Support Broker. Your broker:</p>
+        <ul class="check-list">
+          <li>Explains your Self-Direction options in plain language</li>
+          <li>Brings together your Circle of Support: the people who know you best</li>
+          <li>Turns the goals in your Life Plan into a budget and gets it submitted for approval</li>
+          <li>Helps you find and hire staff through your Fiscal Intermediary</li>
+          <li>Adjusts the plan as needs change and keeps you ready for annual renewals</li>
+        </ul>
+        <p>More detail: <a href="/support-brokerage.html">how Support Brokerage works</a>.</p>
+
+        <h2>How it works with Spectrum Arch</h2>
+        <ol class="steps">
+          <li><h3>Join our list</h3><p>It takes about two minutes. We don't ask for diagnoses or medical details.</p></li>
+          <li><h3>We talk it through</h3><p>A free call or email about where you are: eligibility, waiver enrollment, your Care Manager, and what you need.</p></li>
+          <li><h3>We match you with a broker</h3><p>We introduce you to an OPWDD-authorized broker who works with Spectrum Arch, based on your county, needs, and language.</p></li>
+          <li><h3>Your broker gets started</h3><p>Your broker helps build your Circle of Support, plan, and first budget. Brokerage during this start-up phase is funded separately and doesn't come out of your budget.</p></li>
+        </ol>
+
+        <h2>Is this right for your family?</h2>
+        <ul class="check-list">
+          <li>The person has been found eligible for OPWDD services, or you've applied</li>
+          <li>You're enrolled in the HCBS Waiver, or working on it</li>
+          <li>You want to self-direct, or you already do and want a new broker</li>
+          <li>You live in Saratoga, Albany, Schenectady, Rensselaer, Warren, Washington, Fulton, Montgomery, Schoharie, Columbia, or Greene County</li>
+        </ul>
+        <p>Not sure where you stand? That's what the free conversation is for. Families elsewhere in New York are welcome to ask too.</p>
+      </div>
+    </section>
+
+    <section class="section alt" id="join">
+      <div class="container narrow">
+        <h2>Join our list</h2>
+        <p>Tell us a little about your family. We'll contact you to talk through next steps and match you with a broker when you're ready. If our brokers are fully booked, we contact families in the order they joined.</p>
+{WAITLIST_FORM}      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <h2>Questions families ask</h2>
+        <div class="faq-list">
+          <details class="faq"><summary>Do families pay for Support Brokerage?</summary><p>Usually not out of pocket. Support Brokerage is an OPWDD waiver service funded through Medicaid. Start-up brokerage is funded separately; after that, brokerage is paid from your Self-Direction budget. See <a href="/support-broker-faq.html">the full FAQ</a>.</p></details>
+          <details class="faq"><summary>Do we need OPWDD eligibility first?</summary><p>Self-Direction starts after the person is found eligible for OPWDD services and enrolled in the HCBS Waiver. If you're still applying, join anyway and we'll talk through the steps. Our <a href="/opwdd-eligibility-requirements.html">eligibility guide</a> explains what OPWDD looks at.</p></details>
+          <details class="faq"><summary>Can we change brokers later?</summary><p>Yes. You choose your Support Broker, and you can change if the fit isn't right.</p></details>
+          <details class="faq"><summary>Who is Spectrum Arch?</summary><p>A 501(c)(3) nonprofit in Clifton Park (EIN {EIN}), led by a volunteer board. <a href="/about.html">Meet our board and read our story</a>.</p></details>
+        </div>
+      </div>
+    </section>
+''', head_extra=WL_JS, noindex=True,
+ full_title="Find an OPWDD Support Broker in Saratoga, Albany & the Capital Region | Spectrum Arch")
+
+page("self-direction-help.html", "OPWDD Self-Direction help",
+ "Plain-language help with OPWDD Self-Direction for New York families: the steps, the terms, and free help from a Capital Region nonprofit.",
+f'''    <section class="page-head">
+      <div class="container narrow">
+        <span class="eyebrow">Free help from a Capital Region nonprofit</span>
+        <h1>OPWDD Self-Direction help for New York families</h1>
+        <p class="lead">Self-Direction lets a person with a developmental disability choose their own supports, staff, and schedule. Here is how it works in plain language, and how Spectrum Arch can help, at no cost to talk.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="#join">Get free help</a>
+          <a class="btn btn-ghost" href="/self-direction-guide.html">Read the full guide</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Where are you right now?</h2>
+        <div class="grid grid-2">
+          <a class="card card-link" href="/opwdd-eligibility-requirements.html"><h3>Not yet eligible for OPWDD</h3><p>Start with eligibility: what OPWDD looks at, what records you need, and how to apply through the Front Door.</p></a>
+          <a class="card card-link" href="/self-direction-guide.html"><h3>Eligible and learning about Self-Direction</h3><p>The whole path in eight steps, plus the terms you'll hear along the way.</p></a>
+          <a class="card card-link" href="#join"><h3>Ready to self-direct and need a Support Broker</h3><p>Join our list, and we'll match you with an OPWDD-authorized broker who works with Spectrum Arch.</p></a>
+          <div class="card"><h3>Already self-directing</h3><p>Questions about <a href="/self-direction-budget.html">your budget</a>, <a href="/hiring-self-directed-staff.html">hiring staff</a>, or <a href="/self-direction-budget-changes.html">changing your budget</a> during the year.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <h2>The path, step by step</h2>
+        <ol class="steps">
+          <li><h3>Confirm OPWDD eligibility</h3><p>Apply through OPWDD's Front Door. This usually needs records showing a developmental disability that began before age 22.</p></li>
+          <li><h3>Enroll in Medicaid and the HCBS Waiver</h3><p>Self-Direction is available to people enrolled in Medicaid and OPWDD's Home and Community-Based Services Waiver.</p></li>
+          <li><h3>Choose a Care Manager</h3><p>Your Care Manager, from a Care Coordination Organization, writes your Life Plan and helps you request Self-Direction.</p></li>
+          <li><h3>Choose a Support Broker and a Fiscal Intermediary</h3><p>Your broker helps you plan and build the budget. Your <a href="/fiscal-intermediary.html">Fiscal Intermediary</a> handles payroll and pays approved expenses.</p></li>
+          <li><h3>Plan and build your budget</h3><p>With your Circle of Support, set goals and turn them into a <a href="/self-direction-budget.html">self-direction budget</a> to submit for approval.</p></li>
+          <li><h3>Hire staff and start services</h3><p>Once the budget is approved, you <a href="/hiring-self-directed-staff.html">hire staff</a> through your FI, and your broker helps you adjust as needs change.</p></li>
+        </ol>
+        <p>Timing varies, and each step takes time, so it helps to start early, ideally well before school services end at 21.</p>
+      </div>
+    </section>
+
+    <section class="section alt" id="join">
+      <div class="container narrow">
+        <h2>Get free help from Spectrum Arch</h2>
+        <p>Tell us where you are. We'll call or email to talk it through at no cost, and if you need a Support Broker, we'll match you with an OPWDD-authorized broker who works with us.</p>
+{WAITLIST_FORM}      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <h2>Questions families ask</h2>
+        <div class="faq-list">
+          <details class="faq"><summary>Do we need a Support Broker?</summary><p>If you self-direct with Budget Authority, yes: your broker helps build and manage the budget. Read <a href="/choosing-a-support-broker.html">how to choose one</a>.</p></details>
+          <details class="faq"><summary>What is a Personal Resource Account?</summary><p>The self-direction budget available to you, based on your assessed needs. Your broker helps you plan how to use it. See <a href="/self-direction-budget.html">how the budget works</a>.</p></details>
+          <details class="faq"><summary>Who does what in Self-Direction?</summary><p>The person and family, Care Manager, Support Broker, and Fiscal Intermediary each have a different job. Here's <a href="/who-does-what-in-self-direction.html">who does what</a>.</p></details>
+          <details class="faq"><summary>Who is Spectrum Arch?</summary><p>A 501(c)(3) nonprofit in Clifton Park (EIN {EIN}) that publishes free guides, offers free consultations to families, and connects families with OPWDD-authorized Support Brokers. <a href="/about.html">About us</a>.</p></details>
+        </div>
+      </div>
+    </section>
+''', head_extra=WL_JS, noindex=True,
+ full_title="OPWDD Self-Direction Help for New York Families | Spectrum Arch")
 
 # =====================================================================
 # Sitemap (every indexable page, newest content date)
