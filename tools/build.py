@@ -20,7 +20,10 @@ NAV = [("index.html","Home"),
                               ("who-does-what-in-self-direction.html","Broker, Care Manager, or FI?"),
                               ("support-broker-faq.html","Support Broker FAQ"),
                               ("support-broker-capital-region.html","Areas we serve"),
-                              ("for-care-managers.html","For Care Managers")]),
+                              ("capital-region-disability-resources.html","Capital Region resources"),
+                              ("for-care-managers.html","For Care Managers"),
+                              ("for-school-transition-teams.html","For school transition teams"),
+                              ("become-a-support-broker.html","Become a Support Broker")]),
        ("Self-Direction", [("self-direction-guide.html","Step-by-step guide"),
                            ("opwdd-eligibility-requirements.html","OPWDD eligibility and diagnoses"),
                            ("self-direction-budget.html","Self-Direction budget and PRA"),
@@ -28,7 +31,9 @@ NAV = [("index.html","Home"),
                            ("hiring-self-directed-staff.html","Hiring your own staff"),
                            ("individual-directed-goods-and-services.html","IDGS: goods and services"),
                            ("self-direction-budget-changes.html","Budget changes and renewal"),
-                           ("self-direction-for-autistic-adults.html","Self-Direction for autistic adults")]),
+                           ("self-direction-for-autistic-adults.html","Self-Direction for autistic adults"),
+                           ("cas-assessment.html","The CAS assessment"),
+                           ("opwdd-glossary.html","OPWDD glossary")]),
        ("blog.html","Blog"),("about.html","About"),("contact.html","Contact"),("waitlist.html","Join the Waitlist")]
 
 ICON = {
@@ -555,6 +560,7 @@ f'''    <section class="page-head">
       <div class="container">
         <h1>Trusted places to start</h1>
         <p class="lead">Planning for adult services takes time. These well-established organizations and public programs can help. Spectrum Arch is not affiliated with them. Links open in a new tab.</p>
+        <p>Live in Albany, Saratoga, Schenectady, Rensselaer, or nearby? See our <a href="/capital-region-disability-resources.html">Capital Region resource guide</a> and the <a href="/opwdd-glossary.html">OPWDD glossary</a>.</p>
       </div>
     </section>
 
@@ -1505,7 +1511,7 @@ f'''    <section class="page-head">
 STATIC_PAGES = ["", "waitlist.html", "about.html", "services.html", "support-brokerage.html", "self-direction-guide.html",
                 "support-broker-faq.html", "support-broker-capital-region.html", "blog.html",
                 "resources.html", "get-involved.html", "contact.html", "privacy.html", "accessibility.html"]
-SITE_UPDATED = "2026-10-08"
+SITE_UPDATED = "2026-11-10"
 
 # Content-Security-Policy: strict by default; opened only to Google's tag
 # domains when tracking IDs are set.
