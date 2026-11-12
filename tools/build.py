@@ -828,6 +828,7 @@ f'''    <section class="page-head">
 {card("home","Finding services and supports","Community classes, respite, transportation, and other supports that match the plan you built.")}
 {card("heart","Staying on track","Budget changes, staff turnover, annual renewals, and new goals: we help you adjust as life changes.")}
         </div>
+        <p class="mt-2">See the <a href="/blog/support-broker-duties-responsibilities.html">full list of Support Broker duties</a> from OPWDD's Support Broker Agreement and checklist.</p>
       </div>
     </section>
 
@@ -1158,6 +1159,17 @@ f'''    <section class="page-head">
 
 
 PUBLISHED_SLUGS = {p["slug"] for p in POSTS}
+FAQ_RE = re.compile(r'<details class="faq"><summary>(.*?)</summary><p>(.*?)</p></details>', re.S)
+def faq_ld(body):
+    """FAQPage structured data for posts that contain <details class="faq"> questions."""
+    qs = FAQ_RE.findall(body)
+    if not qs:
+        return ""
+    strip = lambda s: htmlmod.unescape(re.sub(r"<[^>]+>", "", s)).strip()
+    return ld({"@context": "https://schema.org", "@type": "FAQPage",
+               "mainEntity": [{"@type": "Question", "name": strip(q),
+                               "acceptedAnswer": {"@type": "Answer", "text": strip(a)}} for q, a in qs]})
+
 def unlink_future_posts(html):
     """Links to scheduled (not yet published) posts become plain text until the post goes live."""
     def fix(m):
@@ -1248,6 +1260,7 @@ f'''    <article class="section post">
         "publisher": {"@type": "NGO", "name": "Spectrum Arch, Inc.", "logo": {"@type": "ImageObject", "url": SITE + "/assets/icons/icon-512.png"}},
         "mainEntityOfPage": SITE + f"/blog/{p['slug']}.html",
         "keywords": ", ".join(p["tags"])})
+      + faq_ld(p["body"])
       + ld(crumbs(("Home", ""), ("Blog", "blog.html"), (CATEGORIES[cat_of(p)][0], f"blog/topics/{cat_of(p)}.html"), (p["title"], f"blog/{p['slug']}.html"))),
      full_title=f'{p["title"]} | Spectrum Arch')
 
